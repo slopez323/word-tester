@@ -135,6 +135,7 @@ input{
     max-width: 90vw;
     min-width: 70vw;
     min-height: fit-content;
+    max-height: calc(100vh - 10px);
     background: #E5DCC8;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
