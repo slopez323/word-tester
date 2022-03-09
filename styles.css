@@ -138,7 +138,7 @@ input{
     right:50px;
 }
 
-#share{
+.share{
     margin-top: 15px;
     padding: 10px 5px;
 
@@ -153,17 +153,9 @@ input{
     transition: all .1s ease-in-out;
 }
 
-#share:hover, #share:active{
+.share:hover, .share:active{
     background-color:#C19695;
     cursor: pointer;
-}
-
-*{
-    font-family: 'Raleway', sans-serif;
-}
-
-body{
-    background-color: #003314;
 }
 
 .popup{

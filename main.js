@@ -378,14 +378,26 @@ function showStatPopup() {
 
 
 if (navigator.share) {
-    $('#sharediv').append(`<button id="share">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);
-} else $('#sharediv').remove();
+    $('.shareresult').append(`<button class="share" id="share-result">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);
+    $('.sharestat').append(`<button class="share" id="share-stat">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);       
+} else $('.sharediv').remove();
 
-$('#sharediv').on('click', '#share', function () {
+$('.shareresult').on('click', '#share-result', function () {
     navigator.share({
         title: 'Play Word!',
         url: 'https://slopez323.github.io/word-tester/',
         text: `${shareMessage}`
+    }).then(() => {
+        console.log('Thanks for sharing!');
+    })
+        .catch(console.error);
+});
+
+$('.sharestat').on('click', '#share-stat', function () {
+    navigator.share({
+        title: 'Play Word!',
+        url: 'https://slopez323.github.io/word-tester/',
+        text: `I've won a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  Try it too at:`
     }).then(() => {
         console.log('Thanks for sharing!');
     })
