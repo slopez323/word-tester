@@ -448,7 +448,8 @@ if (navigator.share){
 $('#sharediv').on('click','#share',function(){
     navigator.share({
         title: 'Play Word!',
-        url: 'https://slopez323.github.io/word-tester/'
+        url: 'https://slopez323.github.io/word-tester/',
+        text: `I guessed today's Word! and got 5 stars.`
       }).then(() => {
         console.log('Thanks for sharing!');
       })
