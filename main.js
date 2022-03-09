@@ -447,7 +447,7 @@ function showStatPopup() {
 
 if (navigator.share){
     $('#sharediv').append(`<button id="share">Share <i class="fa fa-solid fa-share-from-square"></i></button>`)
-}
+} else $('#sharediv').remove();
 
 $('#sharediv').on('click','#share',function(){
     navigator.share({
