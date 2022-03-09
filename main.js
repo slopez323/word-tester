@@ -57,6 +57,8 @@ let lettersShown = revealed.length;
 
 let remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
 
+let shareMessage = ''
+
 // handlers
 $(document).ready(function () { refreshAt(0, 0, 0); });
 $(document).ready(startup);
@@ -201,6 +203,8 @@ function checkGuess() {
         stars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2))
         totalGames++
         totalStars += stars
+
+        shareMessage = `I guessed today's Word! and got ${stars}⭐️. Challenge me at: `
 
         $('#next').off();
         $('#submit').off();
@@ -449,7 +453,7 @@ $('#sharediv').on('click','#share',function(){
     navigator.share({
         title: 'Play Word!',
         url: 'https://slopez323.github.io/word-tester/',
-        text: `I guessed today's Word! and got 5 stars.`
+        text: `${shareMessage}`
       }).then(() => {
         console.log('Thanks for sharing!');
       })
