@@ -52,47 +52,90 @@
         </div>
 
     </div>
-    <div class="popup-error">
-        <div class="popup-error content">
-            <div id="textdisplay">
-                <h1></h1><span></span>
+
+    <div class="popup popup-instructions">
+        <div class="instructions">
+            <h1>New day, New <span>Word!</span></h1><ul><li> Guess a word based on related clue words.</li><li> <span>Reveal more clue words</span> for a <span>half <i class="fa fa-solid fa-star"></i> </span>each.</li><li> <span>Reveal more letters</span> of the guess word for a <span>full <i class="fa fa-solid fa-star"></i> </span> each.</li></ul>
+            <button class="exitBtn">X</button>
+        </div>
+    </div>
+
+    <div class="popup popup-error">
+        <div class="standard-popup">
+            <h1>Whoops!</h1>
+            <p></p>
+            <button class="exitBtn">X</button>
+        </div>
+    </div>
+
+    <div class="popup popup-confirm">
+        <div class="standard-popup">
+            <h1>Sure?</h1>
+            <p>You only get 1 chance to guess the word per day so guess wisely!</p>
+            <div class="confirmOptions">
+                <button class="yesno" id="yes">So sure!</button>
+                <button class="yesno" id="no">Lemme think about it again!</button>
             </div>
-            <p id="showWord"></p>
+            <button class="exitBtn">X</button>
+        </div>
+    </div>
+
+    <div class="popup popup-result">
+        <div class="standard-popup">
+            <h1></h1>
+            <p id="lostText">The word you were looking for was</p>
+            <h2 id="showWord"></h2>
             <div class="stars"></div>
             <div class="stats">
                 <div>
-                    <div id="game-box"><span></span></div>
+                    <div class="statbox game-box"><span></span></div>
                     <p>Lifetime Games</p>
                 </div>
                 <div>
-                    <div id="stars-box"><span></span></div>
+                    <div class="statbox stars-box"><span></span></div>
                     <p>Lifetime Stars</p>
                 </div>
                 <div>
-                    <div id="ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i></div>
+                    <div class="statbox ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i></div>
                     <p>Average Score</p>
                 </div>
             </div>
             <div class="clockshare">
                 <div id="clockdiv">
                     <h5>Play again in:</h5>
-                    <span id="hours"></span>
+                    <span class="time" id="hours"></span>
                     <span> : </span>
-                    <span id="minutes"></span>
+                    <span class="time" id="minutes"></span>
                     <span> : </span>
-                    <span id="seconds"></span>
+                    <span class="time" id="seconds"></span>
                 </div>
                 <div id="sharediv"></div>
             </div>
-            <button id="exitBtn">X</button>
-        </div>
-    </div>
-    <div class="popup">
-        <div class="popup instructions">
-            <h1>New day, New <span>Word!</span></h1><ul><li> Guess a word based on related clue words.</li><li> <span>Reveal more clue words</span> for a <span>half <i class="fa fa-solid fa-star"></i>  </span>each.</li><li> <span>Reveal more letters</span> of the guess word for a <span>full <i class="fa fa-solid fa-star"></i> </span> each.</li></ul><button id="inst-exit">X</button>
+            <button class="exitBtn">X</button>
         </div>
     </div>
 
+    <div class="popup popup-stats">
+        <div class="standard-popup">
+            <h1>Stats</h1>
+            <div class="stats">
+            <div>
+                <div class="statbox game-box"><span></span></div>
+                <p>Lifetime Games</p>
+            </div>
+            <div>
+                <div class="statbox stars-box"><span></span></div>
+                <p>Lifetime Stars</p>
+            </div>
+            <div>
+                <div class="statbox ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i></div>
+                <p>Average Score</p>
+            </div>
+        </div>
+            <button class="exitBtn">X</button>
+        
+        </div>
+    </div>
 
     <script src="main.js"></script>
 </body>
