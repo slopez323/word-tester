@@ -1,0 +1,388 @@
+*{
+    font-family: 'Raleway', sans-serif;
+}
+
+body{
+    background-color: #003314;
+}
+
+.title{
+    transform: rotate(-90deg);
+    font-family: 'Pacifico', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 50px;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.card{
+    background-color: white;
+    margin-top: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100vw - 20px);
+    max-width: 700px;
+    
+    border: solid black;
+    border-radius: 10px;
+
+    position:relative;
+}
+
+.card-main{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex:1;
+    padding-bottom: 20px;
+
+    width: 100%;
+}
+
+#word{
+    padding:30px 0;
+}
+
+.clues{
+    width: 100px;
+    height:20px;
+    text-align: center;
+    margin: 8px;
+    font-size: 18px;
+}
+
+input{
+    width: 22px;
+    height: 26px;
+    margin: 1px;
+
+    padding: 0;
+    font-size: 24px;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.starsRemain{
+    display: flex;  
+    gap: 5px;
+    font-size: 12px;
+
+    margin-top: 30px;
+}
+
+.starsRemain i {
+    /* width: 10px;
+    height: 10px;
+    background: #4E0416; */
+    /* border-radius: 50%; */
+    color:#4E0416;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+.popup-error{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    display: none;
+}
+
+#textdisplay{
+    text-align: center;
+}
+
+.content{
+    max-width: 90vw;
+    min-width: 300px;
+    min-height: fit-content;
+    background: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 24px;
+
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    display: none;
+}
+
+.instructions{
+    max-width: 90vw;
+    min-width: 70vw;
+    min-height: fit-content;
+    background: #E5DCC8;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+
+    font-size: 15px;
+
+    text-align: center;
+}
+
+.instructions span{
+    color:#8F5100;
+}
+
+.instructions h1{
+    margin:0;
+}
+
+.instructions h1 span,
+#textdisplay h1{
+    font-family: 'Pacifico', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin:0 0 10px 0;
+}
+
+ul{
+    padding: 10px;
+    margin: 0;
+
+    list-style-type: none;
+}
+
+li{
+    margin: 8px;
+}
+
+#exitBtn, #inst-exit{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 110;
+    font-size: 18px;
+
+    background-color: transparent;
+    border-color: transparent;
+    color: black;
+}
+
+#showWord{
+    font-size: 35px;
+    margin: 10px 0;
+}
+
+.stats{
+    display: flex;
+    gap: 15px;
+    font-size: 10px;
+    padding: 0 30px;
+
+    background-color: #E5DCC8;
+    border-bottom: 3px solid #003314;
+    margin-top: 10px;
+
+    
+}
+
+.stats > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stats p{
+    margin-top: 0;
+    color: #8F5100;
+
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+.stats span{
+    font-family: 'PT Sans Narrow', sans-serif;
+}
+
+#game-box,
+#stars-box,
+#ave-box{
+    max-width: 30%;
+    min-width: 60px;
+    min-height: 60px;
+    color:#003314;
+
+    font-size:30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+
+    margin: 0 10px;
+}
+
+#submit, #next, #letter{
+    margin: 10px;
+
+    background-color: #2D2427;
+    box-shadow: 0px 0px 0px transparent;
+    text-shadow: 0px 0px 0px transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #E5DCC8;
+    font-size: 14px;
+    text-align: center;
+    padding: 2px 15px;
+    transition: all .1s ease-in-out;
+}
+
+#next:active, #letter:active{
+    border: 1px solid #E5DCC8;
+    background-color: #8F5100;
+    transition: .1s;
+}
+
+#submit{
+    background-color: #E5DCC8;
+    color: #2D2427;
+}
+
+#submit:active{
+    border: 1px solid #2D2427;
+    background-color: #4E0416;
+    transition: .1s;
+}
+
+#help{
+    font-size: 20px;
+    position: absolute;
+    bottom:10px;
+    right:10px;
+}
+
+#statBtn{
+    font-size: 20px;
+    position: absolute;
+    bottom:10px;
+    right:50px;
+}
+
+.stars{
+    color: #C19695;
+}
+
+#hours, 
+#minutes, 
+#seconds {
+    font-size: 20px;
+    font-family: 'Inconsolata', monospace;
+    background-color: lightgrey;
+    padding: 6px 3px;
+    border-radius: 4px;
+}
+
+.instructions{
+    white-space: pre-wrap;
+}
+
+.confirmOptions{
+    display: flex;
+    gap:50px;
+
+    margin: 20px 0 0 0;
+}
+
+#yes, #no {
+    width: 120px;
+
+    background-color: #E5DCC8;
+    box-shadow: 0px 0px 0px transparent;
+    text-shadow: 0px 0px 0px transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #003314;
+    font-size: 14px;
+    text-align: center;
+    padding: 2px 10px;
+    transition: all .1s ease-in-out;
+}
+
+#yes:hover, #yes:active, #no:hover, #no:active{
+    background-color: #2D2427;
+    color: #E5DCC8;
+    cursor: pointer;
+}
+
+@media (max-width: 450px) {
+    .card{
+        flex-direction: column;
+        margin-top:10px;
+    }
+    .title{
+        transform: none;
+    }
+    .button{
+        flex-direction: column-reverse;
+    }
+    #help{
+        top: 20px;
+        right:20px;
+        bottom: auto;
+        left: auto;
+    }
+    #statBtn{
+        top: 20px;
+        left: 20px;
+        bottom: auto;
+        right: auto;
+    }
+    #submit, #next, #letter{
+        padding: 8px;
+    }
+    #exitBtn, #inst-exit{
+        top: 2px;
+        right: 2px;
+        padding-right: 2px;
+    }
+}
+
+@media (hover: hover) {
+    #exitBtn:hover, #inst-exit:hover{
+        cursor: pointer;
+    }
+    #next:hover, #letter:hover{
+        background-color: #8F5100;
+        cursor: pointer;
+    }
+    #submit:hover{
+        background-color: #4E0416;
+        color: #E5DCC8;
+        cursor: pointer;
+    }
+    #help:hover, #statBtn:hover{
+        color:#8F5100;
+        cursor: pointer;
+    }
+  }

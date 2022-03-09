@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Word! - Guessing Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/b1efd90343.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="card">
+            <div class="title">Word!</div>
+            <div class="card-main">
+                <div id="word">
+                    <span id="inputSpan">
+
+                    </span>
+                </div>
+                <div class="clues" id="clue1"></div>
+                <div class="clues" id="clue2"></div>
+                <div class="clues" id="clue3"></div>
+                <div class="clues" id="clue4"></div>
+                <div class="clues" id="clue5"></div>
+                <div class="starsRemain"> <span> Stars remaining: </span>
+                    <div class="counter"></div>
+                    <div class="counter"></div>
+                    <div class="counter"></div>
+                    <div class="counter"></div>
+                    <div class="counter"></div>
+                </div>
+            </div>
+            <div class="button">
+                <button id="submit">Submit guess!</button>
+                <button id="next">Reveal next clue for <i class="fa fa-solid fa-star-half"></i></button>
+                <button id="letter">Reveal 1 letter for <i class="fa fa-solid fa-star"></i></button>
+
+            </div>
+            <span><i class="fa fa-solid fa-circle-info" id="help"></i></span>
+            <span><i class="fa fa-solid fa-bars-progress" id="statBtn"></i></span>
+        </div>
+
+    </div>
+    <div class="popup-error">
+        <div class="popup-error content">
+            <div id="textdisplay"><h1></h1><span></span></div>
+            <p id="showWord"></p>
+            <div class="stars"></div>
+            <div class="stats">
+                <div>
+                    <div id="game-box"><span></span></div>
+                    <p>Lifetime Games</p>
+                </div>
+                <div>
+                    <div id="stars-box"><span></span></div>
+                    <p>Lifetime Stars</p>
+                </div>
+                <div>
+                    <div id="ave-box"><span></span><i class="fa fa-solid fa-star" style ="font-size:20px"></i></div>
+                    <p>Average Score</p>
+                </div>
+            </div>
+            <div id="clockdiv">
+                <span id="hours"></span>
+                <span> : </span>
+                <span id="minutes"></span>
+                <span> : </span>
+                <span id="seconds"></span>
+                <div><button id="share">Share <i class="fa fa-solid fa-share-from-square"></i></button></div>
+            </div>
+            <button id="exitBtn">X</button>
+        </div>
+    </div>
+    <div class="popup">
+        <div class="popup instructions"><h1>New day, New <span>Word!</span></h1><ul><li> Guess a word based on related clue words.</li><li> <span>Reveal more clue words</span> for a <span>half <i class="fa fa-solid fa-star"></i> </span>each.</li><li> <span>Reveal more letters</span> of the guess word for a <span>full <i class="fa fa-solid fa-star"></i> </span> each.</li></ul><button id="inst-exit">X</button></div>
+    </div>
+
+
+    <script src="main.js"></script>
+</body>
+
+</html>
