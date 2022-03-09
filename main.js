@@ -60,7 +60,7 @@ let remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(corr
 let shareMessage = ''
 
 // handlers
-$(document).ready(function () { refreshAt(0, 0, 0); });
+// $(document).ready(function () { refreshAt(0, 0, 0); });
 $(document).ready(startup);
 window.addEventListener('keyup', nextInputBox);
 $(document).click(function (e) {
@@ -286,7 +286,7 @@ function countdown() {
 
         if (total <= 0) {
             clearInterval(countdown)
-            startup()
+            location.reload()
         }
     })
 }
@@ -415,34 +415,34 @@ function showStatPopup() {
     $('#exitBtn').click(function () { $('.popup-error').hide() })
 }
 
-function refreshAt(hours, minutes, seconds) {
-    var now = new Date();
-    var then = new Date();
+// function refreshAt(hours, minutes, seconds) {
+//     var now = new Date();
+//     var then = new Date();
 
-    if (now.getHours() > hours ||
-        (now.getHours() == hours && now.getMinutes() > minutes) ||
-        now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
-        then.setDate(now.getDate() + 1);
-    }
-    then.setHours(hours);
-    then.setMinutes(minutes);
-    then.setSeconds(seconds);
+//     if (now.getHours() > hours ||
+//         (now.getHours() == hours && now.getMinutes() > minutes) ||
+//         now.getHours() == hours && now.getMinutes() == minutes && now.getSeconds() >= seconds) {
+//         then.setDate(now.getDate() + 1);
+//     }
+//     then.setHours(hours);
+//     then.setMinutes(minutes);
+//     then.setSeconds(seconds);
 
-    var timeout = (then.getTime() - now.getTime());
-    setTimeout(function () { window.location.reload(true); }, timeout);
-};
+//     var timeout = (then.getTime() - now.getTime());
+//     setTimeout(function () { window.location.reload(true); }, timeout);
+// };
 
 
-var time = new Date().getTime();
-$(document.body).bind("mousemove keypress touchmove keydown", function () {
-    time = new Date().getTime();
-});
+// var time = new Date().getTime();
+// $(document.body).bind("mousemove keypress touchmove keydown", function () {
+//     time = new Date().getTime();
+// });
 
-setInterval(function() {
-    if (new Date().getTime() - time >= 600000) {
-        window.location.reload(true);
-    }
-}, 1000);
+// setInterval(function() {
+//     if (new Date().getTime() - time >= 600000) {
+//         window.location.reload(true);
+//     }
+// }, 1000);
 
 
 if (navigator.share){
