@@ -443,8 +443,8 @@ setInterval(function() {
 $('#share').click(function() {
     if (navigator.share) {
       navigator.share({
-        title: 'WebShare API Demo',
-        url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
+        title: 'Play Word!',
+        url: 'https://slopez323.github.io/word-tester/'
       }).then(() => {
         console.log('Thanks for sharing!');
       })
