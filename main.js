@@ -120,7 +120,7 @@ function showNextClue() {
         $('#textdisplay h1').text(`Whoops!`)
         $('#textdisplay span').text(`You don't have enough stars to reveal another clue.`)
         $('.stats').hide()
-        $('#clockdiv').hide()
+        $('.clockshare').hide()
         $('.confirmOptions').hide()
         $('.popup-error').show()
         $('#exitBtn').click(function () { $('.popup-error').hide() })
@@ -167,7 +167,7 @@ function confirmSubmission() {
         $('#textdisplay h1').text('Whoops!')
         $('#textdisplay span').text('You missed some blanks.  Try again!')
         $('.stats').hide()
-        $('#clockdiv').hide()
+        $('.clockshare').hide()
         $('.confirmOptions').hide()
         $('.popup-error').show()
         $('#exitBtn').click(function () { $('.popup-error').hide() })
@@ -178,12 +178,12 @@ function confirmSubmission() {
         $('.stats').hide()
         $('.stars').hide()
         $('.content>p').hide()
-        $('#clockdiv').hide()
+        $('.clockshare').hide()
         if (!$('.confirmOptions').length) {
             $('.content').append(`<div class="confirmOptions"></div>`)
             $('.confirmOptions').append(`<button id="yes">So sure!</button>`)
             $('.confirmOptions').append(`<button id="no">Lemme think about it again!</button`)
-        }
+        } else $('.confirmOptions').show()
         $('.popup-error').show()
 
         $('#exitBtn').click(function () { $('.popup-error').hide() })
@@ -241,7 +241,6 @@ function displayLost() {
     $('#textdisplay span').text('The word you were looking for was')
     $('#showWord').text(correctWord.toUpperCase()).show()
     showStats()
-    // $('#clockdiv').before('<p>Play again in:</p>')
     $('.confirmOptions').hide()
     $('.popup-error').show()
     $('#exitBtn').click(function () { $('.popup-error').hide() })
@@ -262,7 +261,6 @@ function displayWin(stars) {
     }
     $('.stars').show()
     showStats()
-    // $('#clockdiv').before('<p>Play again in:</p>')
     $('.confirmOptions').hide()
     $('.popup-error').show()
     $('#exitBtn').click(function () { $('.popup-error').hide() })
@@ -270,8 +268,7 @@ function displayWin(stars) {
 }
 
 function countdown() {
-    $('#clockdiv').before('<p>Play again in:</p>')
-    $('#clockdiv').show()
+    $('.clockshare').show()
     setInterval(function () {
         const today = new Date()
         const tomorrow = new Date(today)
@@ -337,7 +334,7 @@ function addLetter() {
             $('#textdisplay h1').text(`Whoops!`)
             $('#textdisplay span').text(`You don't have enough stars to reveal another letter.`)
             $('.stats').hide()
-            $('#clockdiv').hide()
+            $('#clockshare').hide()
             $('.confirmOptions').hide()
             $('.popup-error').show()
             $('#exitBtn').click(function () { $('.popup-error').hide() })
@@ -367,7 +364,7 @@ function addLetter() {
         $('#textdisplay h1').text('Whoops!')
         $('#textdisplay span').text('Maximum possible letters already revealed.')
         $('.stats').hide()
-        $('#clockdiv').hide()
+        $('.clockshare').hide()
         $('.confirmOptions').hide()
         $('.popup-error').show()
         $('#exitBtn').click(function () { $('.popup-error').hide() })
@@ -412,7 +409,7 @@ function showStatPopup() {
     showStats()
     $('.stars').hide()
     $('.content>p').hide()
-    $('#clockdiv').hide()
+    $('.clockshare').hide()
     $('.confirmOptions').hide()
     $('.popup-error').show()
     $('#exitBtn').click(function () { $('.popup-error').hide() })

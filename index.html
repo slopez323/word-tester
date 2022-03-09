@@ -54,7 +54,9 @@
     </div>
     <div class="popup-error">
         <div class="popup-error content">
-            <div id="textdisplay"><h1></h1><span></span></div>
+            <div id="textdisplay">
+                <h1></h1><span></span>
+            </div>
             <p id="showWord"></p>
             <div class="stars"></div>
             <div class="stats">
@@ -67,23 +69,33 @@
                     <p>Lifetime Stars</p>
                 </div>
                 <div>
-                    <div id="ave-box"><span></span><i class="fa fa-solid fa-star" style ="font-size:20px"></i></div>
+                    <div id="ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i></div>
                     <p>Average Score</p>
                 </div>
             </div>
-            <div id="clockdiv">
-                <span id="hours"></span>
-                <span> : </span>
-                <span id="minutes"></span>
-                <span> : </span>
-                <span id="seconds"></span>
+            <div class="clockshare">
+                <div id="clockdiv">
+                    <h5>Play again in:</h5>
+                    <span id="hours"></span>
+                    <span> : </span>
+                    <span id="minutes"></span>
+                    <span> : </span>
+                    <span id="seconds"></span>
+                </div>
                 <div id="sharediv"></div>
             </div>
             <button id="exitBtn">X</button>
         </div>
     </div>
     <div class="popup">
-        <div class="popup instructions"><h1>New day, New <span>Word!</span></h1><ul><li> Guess a word based on related clue words.</li><li> <span>Reveal more clue words</span> for a <span>half <i class="fa fa-solid fa-star"></i> </span>each.</li><li> <span>Reveal more letters</span> of the guess word for a <span>full <i class="fa fa-solid fa-star"></i> </span> each.</li></ul><button id="inst-exit">X</button></div>
+        <div class="popup instructions">
+            <h1>New day, New <span>Word!</span></h1>
+            <ul>
+                <li> Guess a word based on related clue words.</li>
+                <li> <span>Reveal more clue words</span> for a <span>half <i class="fa fa-solid fa-star"></i></span>each.</li>
+                <li> <span>Reveal more letters</span> of the guess word for a <span>full <i class="fa fa-solid fa-star"></i> </span> each.</li>
+            </ul><button id="inst-exit">X</button>
+        </div>
     </div>
 
 

@@ -335,6 +335,38 @@ li{
     cursor: pointer;
 }
 
+h5{
+    text-align: center;
+    margin: 0 0 10px 0;
+}
+
+.clockshare{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+#share{
+    margin-top: 15px;
+    padding: 10px 5px;
+
+    background-color: #003314;
+    box-shadow: 0px 0px 0px transparent;
+    text-shadow: 0px 0px 0px transparent;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    color: #E5DCC8;
+    font-size: 14px;
+    text-align: center;
+    transition: all .1s ease-in-out;
+}
+
+#share:hover, #share:active{
+    background-color:#C19695;
+    cursor: pointer;
+}
+
 @media (max-width: 450px) {
     .card{
         flex-direction: column;
@@ -365,6 +397,9 @@ li{
         top: 2px;
         right: 2px;
         padding-right: 2px;
+    }
+    .clockshare{
+        width: 80%;
     }
 }
 
