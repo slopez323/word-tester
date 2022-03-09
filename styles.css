@@ -112,7 +112,7 @@ input{
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    padding: 24px;
+    padding: 12px 24px 24px 24px;
 
     display:flex;
     flex-direction: column;
@@ -135,7 +135,7 @@ input{
     max-width: 90vw;
     min-width: 70vw;
     min-height: fit-content;
-    max-height: calc(100vh - 10px);
+    max-height: calc(100vh - 20px);
     background: #E5DCC8;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     position: absolute;
