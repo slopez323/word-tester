@@ -36,7 +36,6 @@ const played = {
 // variables
 const clues = document.getElementsByClassName('clues');
 const wordInput = document.getElementById('inputSpan');
-const remainingGuess = document.getElementsByClassName('counter');
 
 const dateToday = new Date();
 const firstDay = new Date('03/07/2022');
@@ -44,20 +43,16 @@ const wordToday = Math.floor((dateToday.getTime() - firstDay.getTime()) / (1000 
 
 let correctWord = dailyWords[wordToday].word;
 
-let cluesShown = +localStorage.getItem(played.GAME_CLUES) || 1;
-let stars = 0;
-let totalGames = +localStorage.getItem(played.TOTAL_GAMES) || 0;
-let totalStars = +localStorage.getItem(played.TOTAL_STARS) || 0;
-let revealed = localStorage.getItem(played.GAME_LETTERS) || [];
-if (revealed.length > 0) {
-    revealed = revealed.split(',');
-    revealed = revealed.map(x => +x)
-}
-let lettersShown = revealed.length;
+let cluesShown;
+let stars;
+let totalGames;
+let totalStars;
+let revealed;
+let lettersShown;
 
-let remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
+let remainingStars;
 
-let shareMessage = ''
+let shareMessage = '';
 
 // handlers
 // $(document).ready(function () { refreshAt(0, 0, 0); });
@@ -307,6 +302,19 @@ function getTodaysState() {
         localStorage.removeItem(played.GAME_STARS)
         localStorage.removeItem(played.GAME_LETTERS)
     }
+
+    cluesShown = +localStorage.getItem(played.GAME_CLUES) || 1;
+    stars = 0;
+    totalGames = +localStorage.getItem(played.TOTAL_GAMES) || 0;
+    totalStars = +localStorage.getItem(played.TOTAL_STARS) || 0;
+    revealed = localStorage.getItem(played.GAME_LETTERS) || [];
+    if (revealed.length > 0) {
+    revealed = revealed.split(',');
+    revealed = revealed.map(x => +x)
+    }
+    lettersShown = revealed.length;
+
+    remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
 }
 
 function showSomeLetters() {
@@ -460,40 +468,40 @@ $('#sharediv').on('click','#share',function(){
       .catch(console.error);
 })
 
-// document.addEventListener('contextmenu', event => event.preventDefault());
+document.addEventListener('contextmenu', event => event.preventDefault());
 
-// document.onkeydown = function (e) {
-//     if (event.keyCode == 123) {
-//         return false;
-//     }
-//     if (e.metaKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.metaKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.metaKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.metaKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.metaKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
-//         return false;
-//     }
-//     if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
-//         return false;
-//     }
-// }
+document.onkeydown = function (e) {
+    if (event.keyCode == 123) {
+        return false;
+    }
+    if (e.metaKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.metaKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.metaKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.metaKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.metaKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+        return false;
+    }
+    if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+        return false;
+    }
+}
