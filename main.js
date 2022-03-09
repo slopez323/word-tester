@@ -440,19 +440,20 @@ setInterval(function() {
     }
 }, 1000);
 
-$('#share').click(function() {
-    if (navigator.share) {
-      navigator.share({
+
+if (navigator.share){
+    $('#sharediv').append(`<button id="share">Share <i class="fa fa-solid fa-share-from-square"></i></button>`)
+}
+
+$('#sharediv').on('click','#share',function(){
+    navigator.share({
         title: 'Play Word!',
         url: 'https://slopez323.github.io/word-tester/'
       }).then(() => {
         console.log('Thanks for sharing!');
       })
       .catch(console.error);
-    } else {
-      // fallback
-    }
-  });
+})
 
 // document.addEventListener('contextmenu', event => event.preventDefault());
 
