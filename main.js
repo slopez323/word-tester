@@ -235,6 +235,8 @@ function checkGuess() {
 };
 
 function displayLost() {
+    shareMessage = `I couldn't guess today's Word! Try guessing it at: `
+
     $('#textdisplay h1').text('Awww sorry').css('margin', 0)
     $('#textdisplay span').text('The word you were looking for was')
     $('#showWord').text(correctWord.toUpperCase()).show()
@@ -248,7 +250,7 @@ function displayLost() {
 
 function displayWin(stars) {
     shareMessage = `I guessed today's Word! and got ${stars}⭐️. Challenge me at: `
-    
+
     $('#textdisplay h1').text(`Yasss!`)
     $('#textdisplay span').hide()
     $('#showWord').remove()
