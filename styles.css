@@ -156,6 +156,7 @@ input{
 .share:hover, .share:active{
     background-color:#C19695;
     cursor: pointer;
+    transition: .1s;
 }
 
 .popup{
