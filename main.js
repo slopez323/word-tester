@@ -51,8 +51,6 @@ $('#next').click(showNextClue);
 $('#submit').click(confirmSubmission);
 $('#letter').click(addLetter);
 
-if(getTodaysDt() !== localStorage.getItem(played.LAST_PLAYED)) location.reload();
-
 
 // functions
 
@@ -253,6 +251,7 @@ function countdown() {
 
         if (total = 0) {
             clearInterval(countdown);
+            location.reload();
         };
     });
 };
