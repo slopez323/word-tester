@@ -153,7 +153,7 @@ input{
     transition: all .1s ease-in-out;
 }
 
-.share:hover, .share:active{
+.share:active{
     background-color:#C19695;
     cursor: pointer;
     transition: .1s;
@@ -219,9 +219,7 @@ input{
     color: black;
 }
 
-.exitBtn:hover{
-    cursor: pointer;
-}
+
 
 .instructions span{
     color:#8F5100;
@@ -270,23 +268,9 @@ li{
     transition: all .1s ease-in-out;
 }
 
-.yesno:hover, .yesno:active{
+.yesno:active{
     background-color: #2D2427;
     color: #E5DCC8;
-    cursor: pointer;
-}
-
-#next:hover, #letter:hover{
-    background-color: #8F5100;
-    cursor: pointer;
-}
-#submit:hover{
-    background-color: #4E0416;
-    color: #E5DCC8;
-    cursor: pointer;
-}
-#help:hover, #statBtn:hover{
-    color:#8F5100;
     cursor: pointer;
 }
 
@@ -397,3 +381,31 @@ h5{
     }
 }
   
+@media (hover: hover){
+    .exitBtn:hover{
+        cursor: pointer;
+    }
+    .yesno:hover{
+        background-color: #2D2427;
+        color: #E5DCC8;
+        cursor: pointer;
+    }
+    #next:hover, #letter:hover{
+        background-color: #8F5100;
+        cursor: pointer;
+    }
+    #submit:hover{
+        background-color: #4E0416;
+        color: #E5DCC8;
+        cursor: pointer;
+    }
+    #help:hover, #statBtn:hover{
+        color:#8F5100;
+        cursor: pointer;
+    }
+    .share:hover, .share:active{
+        background-color:#C19695;
+        cursor: pointer;
+        transition: .1s;
+    }
+}
