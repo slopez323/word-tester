@@ -56,11 +56,11 @@ $('#letter').click(addLetter);
 
 $(document).ready(function() {getWord(function(p) {
     dailyWords = p
-    correctWord = dailyWords[wordToday].word; // 
+    correctWord = dailyWords[wordToday].word; 
     clueList = dailyWords[wordToday].clueList;
     startup();
-})
-})
+});
+});
 
 function startup() {
     setUpWordOfDay();
