@@ -3,6 +3,7 @@
     { "word": "FIELD", "clueList": ["SPORTS", "LAND", "CORN", "WRIGLEY", "SALLY"] },
     { "word": "HUDDLE", "clueList": ["TOGETHER", "FOOTBALL", "PLAY", "INSTRUCTIONS", "GATHER"] },
     { "word": "PULSE", "clueList": ["HEARTBEAT", "RATE", "TAKE", "WRIST", "COUNT"] },
+    { "word": "GUESSME", "clueList": ["SECRET", "ACCESS", "PROTECT", "COMPUTER", "CONFIDENTIAL"] },
     { "word": "PASSWORD", "clueList": ["SECRET", "ACCESS", "PROTECT", "COMPUTER", "CONFIDENTIAL"] },
     { "word": "BARGAIN", "clueList": ["SALE", "CHEAP", "PRICE", "HAGGLE", "DEAL"] },
     { "word": "QUACK", "clueList": ["DUCK", "NOISE", "WADDLE", "AFLAC", "DOCTOR"] },
