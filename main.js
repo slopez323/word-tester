@@ -211,7 +211,7 @@ function displayLost() {
     $('#showWord').text(correctWord.toUpperCase());
     $('.stars').remove();
     $('.popup-result').show();
-    
+
     showStats();
     countdown();
 }
@@ -379,7 +379,9 @@ function showStatPopup() {
 
 if (navigator.share) {
     $('.shareresult').append(`<button class="share" id="share-result">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);
-    $('.sharestat').append(`<button class="share" id="share-stat">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);       
+    if (localStorage.getItem(played.TOTAL_GAMES) > 0) {
+        $('.sharestat').append(`<button class="share" id="share-stat">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);
+    };
 } else $('.sharediv').remove();
 
 $('.shareresult').on('click', '#share-result', function () {
