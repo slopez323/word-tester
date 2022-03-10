@@ -253,7 +253,6 @@ function countdown() {
 
         if (total = 0) {
             clearInterval(countdown);
-            return;
         };
     });
     location.reload();
