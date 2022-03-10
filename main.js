@@ -198,7 +198,7 @@ function checkGuess() {
 };
 
 function displayLost() {
-    shareMessage = `I couldn't guess today's Word! Try guessing it! `;
+    shareMessage = `I couldn't guess today's Word! Can you? `;
 
     $('.popup-result h1').text('Awww sorry');
     $('#showWord').text(correctWord.toUpperCase());
@@ -398,7 +398,7 @@ $('.sharestat').on('click', '#share-stat', function () {
     navigator.share({
         title: 'Play Word!',
         url: 'https://word.dailybrainplay.com/',
-        text: `I've won a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  Try it too! `
+        text: `I've won a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  What about you? `
     }).then(() => {
         console.log('Thanks for sharing!');
     })
