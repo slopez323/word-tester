@@ -51,7 +51,7 @@ $('#next').click(showNextClue);
 $('#submit').click(confirmSubmission);
 $('#letter').click(addLetter);
 
-// if(getTodaysDt() !== localStorage.getItem(played.LAST_PLAYED)) location.reload();
+if(getTodaysDt() !== localStorage.getItem(played.LAST_PLAYED)) location.reload();
 
 
 // functions
@@ -255,7 +255,6 @@ function countdown() {
             clearInterval(countdown);
         };
     });
-    location.reload();
 };
 
 
