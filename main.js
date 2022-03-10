@@ -398,7 +398,7 @@ $('.sharestat').on('click', '#share-stat', function () {
     navigator.share({
         title: 'Play Word!',
         url: 'https://word.dailybrainplay.com/',
-        text: `I've won a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  What about you? `
+        text: `I have a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  What about you? `
     }).then(() => {
         console.log('Thanks for sharing!');
     })
