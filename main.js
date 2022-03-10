@@ -1,27 +1,3 @@
-// words
-const dailyWords = [
-    { word: 'FIELD', clueList: ['SPORTS', 'LAND', 'CORN', 'WRIGLEY', 'SALLY'] },
-    { word: 'HUDDLE', clueList: ['TOGETHER', 'FOOTBALL', 'PLAY', 'INSTRUCTIONS', 'GATHER'] },
-    { word: 'PULSE', clueList: ['HEARTBEAT', 'RATE', 'TAKE', 'WRIST', 'COUNT'] },
-    { word: 'PASSWORD', clueList: ['SECRET', 'ACCESS', 'PROTECT', 'COMPUTER', 'CONFIDENTIAL'] },
-    { word: 'QUACK', clueList: ['DUCK', 'NOISE', 'WADDLE', 'AFLAC', 'DOCTOR'] },
-    { word: 'SHOULDER', clueList: ['ARM', 'JOINT', 'CRY', 'DISLOCATE', 'COLD'] },
-    { word: 'BARGAIN', clueList: ['SALE', 'CHEAP', 'PRICE', 'HAGGLE', 'DEAL'] },
-    { word: 'DREAM', clueList: ['SLEEP', 'IMAGE', 'R.E.M.', 'HAGGLE', 'DEAL'] },
-    { word: 'STEPMOTHER', clueList: ['SPOUSE', 'FATHER', 'MARRY', 'EVIL', 'PARENT'] },
-    { word: 'ASTEROID', clueList: ['SPACE', 'BELT', 'METEOR', 'ARMAGEDDON', 'BRUCE WILLIS'] },
-    { word: 'TUMBLER', clueList: ['DRINKING', 'GLASS', 'ACROBAT', 'GYMNAST', 'LOCK'] },
-    { word: 'KENNEL', clueList: ['DOGS', 'BOARD', 'CANINE', 'HOTEL', 'KEEP'] },
-    { word: 'TABLET', clueList: ['PAD', 'PAPER', 'PILL', 'MOSES', 'IPAD'] },
-    { word: 'CHIROPRACTOR', clueList: ['BACK', 'SPINE', 'MANIPULATE', 'ADJUST', 'TREAT'] },
-    { word: 'INFINITY', clueList: ['FOREVER', 'ETERNAL', 'NEVERENDING', 'LUXURY', 'CAR'] },
-    { word: 'BLING', clueList: ['SHINY', 'JEWELRY', 'GLITTER', 'FLASHY', 'SLANG'] },
-    { word: 'TREADMILL', clueList: ['WALK', 'GYM', 'MACHINE', 'STEP', 'FAST'] },
-    { word: 'CRUISE', clueList: ['SAIL', 'LEISURE', 'PENELOPE', 'MISSILE', 'TOM'] },
-    { word: 'POLYGAMY', clueList: ['WED', 'PLURAL', 'WIVES', 'MORMON', 'BIG LOVE'] },
-    { word: 'CHUCK', clueList: ['MEAT', 'HAMBURGER', 'WAGON', 'THROW', 'NORRIS'] },
-];
-
 // local storage
 const played = {
     TOTAL_STARS: 'lifetime stars',
@@ -41,7 +17,9 @@ const dateToday = new Date();
 const firstDay = new Date('03/07/2022');
 const wordToday = Math.floor((dateToday.getTime() - firstDay.getTime()) / (1000 * 3600 * 24));
 
-let correctWord = dailyWords[wordToday].word;
+let correctWord;
+let dailyWords;
+let clueList;
 
 let cluesShown;
 let stars;
@@ -55,7 +33,6 @@ let remainingStars;
 let shareMessage = '';
 
 // handlers
-$(document).ready(startup);
 window.addEventListener('keyup', nextInputBox);
 $(document).click(function (e) {
     if (e.target.id === 'help' || e.target.id === 'submit' || e.target.id === 'next' || e.target.id === 'letter' || e.target.id === 'statBtn' || e.target.id === 'yes' || e.target.id === 'no') return false;
@@ -76,10 +53,19 @@ $('#letter').click(addLetter);
 
 
 // functions
+
+$(document).ready(function() {getWord(function(p) {
+    dailyWords = p
+    correctWord = dailyWords[wordToday].word; // 
+    clueList = dailyWords[wordToday].clueList;
+    startup();
+})
+})
+
 function startup() {
-    setUpWordOfDay()
-    getTodaysState()
-    updateRunningStars()
+    setUpWordOfDay();
+    getTodaysState();
+    updateRunningStars();
     if (revealed.length === 0) showSomeLetters();
     if (localStorage.getItem(played.GAME_RESULT) == 'won') {
         for (let i = 0; i < correctWord.length; i++) {
@@ -100,7 +86,7 @@ function startup() {
         $('.popup-instructions').show();
     };
     for (let i = 0; i < cluesShown; i++) {
-        clues[i].textContent = dailyWords[wordToday].clueList[i].toUpperCase();
+        clues[i].textContent = clueList[i].toUpperCase();
     };
     for (let i = 0; i < correctWord.length; i++) {
         if (revealed.includes(i)) {
@@ -111,12 +97,12 @@ function startup() {
 };
 
 function getWord(cb) {
-    $.getJSON("./word.json", function(data){
+    $.getJSON("./s2rl3s.json", function(data){
         cb(data.dailyWords)
     }).fail(function(){
         console.log("An error has occurred.")
     });
-}
+};
 
 function setUpWordOfDay() {
     for (let i = 0; i < correctWord.length; i++) {
@@ -130,7 +116,7 @@ function showNextClue() {
         $('.popup-error').show();
         return;
     } else if (cluesShown < 5) {
-        clues[cluesShown].textContent = dailyWords[wordToday].clueList[cluesShown].toUpperCase();
+        clues[cluesShown].textContent = clueList[cluesShown].toUpperCase();
         cluesShown++;
         localStorage.setItem(played.GAME_CLUES, cluesShown);
         updateRunningStars();

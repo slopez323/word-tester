@@ -13,6 +13,12 @@
     { "word": "TUMBLER", "clueList": ["DRINKING", "GLASS", "ACROBAT", "GYMNAST", "LOCK"] },
     { "word": "KENNEL", "clueList": ["DOGS", "BOARD", "CANINE", "HOTEL", "KEEP"] },
     { "word": "TABLET", "clueList": ["PAD", "PAPER", "PILL", "MOSES", "IPAD"] },
-    { "word": "CHIROPRACTOR", "clueList": ["BACK", "SPINE", "MANIPULATE", "ADJUST", "TREAT"] }
+    { "word": "CHIROPRACTOR", "clueList": ["BACK", "SPINE", "MANIPULATE", "ADJUST", "TREAT"] },
+    { "word": "INFINITY", "clueList": ["FOREVER", "ETERNAL", "NEVERENDING", "LUXURY", "CAR"] },
+    { "word": "BLING", "clueList": ["SHINY", "JEWELRY", "GLITTER", "FLASHY", "SLANG"] },
+    { "word": "TREADMILL", "clueList": ["WALK", "GYM", "MACHINE", "STEP", "FAST"] },
+    { "word": "CRUISE", "clueList": ["SAIL", "LEISURE", "PENELOPE", "MISSILE", "TOM"] },
+    { "word": "POLYGAMY", "clueList": ["WED", "PLURAL", "WIVES", "MORMON", "BIG LOVE"] },
+    { "word": "CHUCK", "clueList": ["MEAT", "HAMBURGER", "WAGON", "THROW", "NORRIS"] }
     ]
 }
