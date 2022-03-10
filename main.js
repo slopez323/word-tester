@@ -110,6 +110,19 @@ function startup() {
     };
 };
 
+function getWord(cb) {
+    $.getJSON("./word.json", function(data){
+        cb(data.dailyWords)
+    }).fail(function(){
+        console.log("An error has occurred.")
+    });
+}
+
+function setUpWordOfDay() {
+    for (let i = 0; i < correctWord.length; i++) {
+        $(wordInput).append(`<input type="text" maxlength="1" class="inputs"></input>`);
+    };
+};
 
 function showNextClue() {
     if (remainingStars <= 0.5) {
@@ -121,12 +134,6 @@ function showNextClue() {
         cluesShown++;
         localStorage.setItem(played.GAME_CLUES, cluesShown);
         updateRunningStars();
-    };
-};
-
-function setUpWordOfDay() {
-    for (let i = 0; i < correctWord.length; i++) {
-        $(wordInput).append(`<input type="text" maxlength="1" class="inputs"></input>`);
     };
 };
 
@@ -256,7 +263,7 @@ function countdown() {
         $('#minutes').text(minutes);
         $('#seconds').text(seconds);
 
-        if (total <= 0) {
+        if (total = 0) {
             clearInterval(countdown);
             location.reload();
         };
