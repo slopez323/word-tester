@@ -11,20 +11,29 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
     <script src="https://kit.fontawesome.com/b1efd90343.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2YYMF6JQG"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y2YYMF6JQG"></script>
 
-  gtag('config', 'G-Y2YYMF6JQG');
-</script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-Y2YYMF6JQG');
+    </script>
 </head>
 
 <body>
@@ -64,7 +73,14 @@
 
     <div class="popup popup-instructions">
         <div class="instructions">
-            <h1>New day, New <span>Word!</span></h1><ul><li> Guess a word based on related clue words.</li><li> <span>Reveal more clue words</span> for a <span>half <i class="fa fa-solid fa-star"></i> </span>each.</li><li> <span>Reveal more letters</span> of the guess word for a <span>full <i class="fa fa-solid fa-star"></i> </span> each.</li></ul>
+            <h1>New day, New <span>Word!</span></h1>
+            <ul>
+                <li> Guess a word based on related clue words.</li>
+                <li> <span>Reveal more clue words</span> for a <span>half <i class="fa fa-solid fa-star"></i>
+                    </span>each.</li>
+                <li> <span>Reveal more letters</span> of the guess word for a <span>full <i
+                            class="fa fa-solid fa-star"></i> </span> each.</li>
+            </ul>
             <button class="exitBtn">X</button>
         </div>
     </div>
@@ -105,7 +121,8 @@
                     <p>Lifetime Stars</p>
                 </div>
                 <div>
-                    <div class="statbox ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i></div>
+                    <div class="statbox ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i>
+                    </div>
                     <p>Average Score</p>
                 </div>
             </div>
@@ -128,22 +145,23 @@
         <div class="standard-popup">
             <h1>Stats</h1>
             <div class="stats">
-            <div>
-                <div class="statbox game-box"><span></span></div>
-                <p>Lifetime Games</p>
+                <div>
+                    <div class="statbox game-box"><span></span></div>
+                    <p>Lifetime Games</p>
+                </div>
+                <div>
+                    <div class="statbox stars-box"><span></span></div>
+                    <p>Lifetime Stars</p>
+                </div>
+                <div>
+                    <div class="statbox ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i>
+                    </div>
+                    <p>Average Score</p>
+                </div>
             </div>
-            <div>
-                <div class="statbox stars-box"><span></span></div>
-                <p>Lifetime Stars</p>
-            </div>
-            <div>
-                <div class="statbox ave-box"><span></span><i class="fa fa-solid fa-star" style="font-size:20px"></i></div>
-                <p>Average Score</p>
-            </div>
-        </div>
-        <div class="sharediv sharestat"></div>
+            <div class="sharediv sharestat"></div>
             <button class="exitBtn">X</button>
-        
+
         </div>
     </div>
 
