@@ -291,7 +291,7 @@ function showSomeLetters() {
     let letterClues = Math.floor(correctWord.length * .2);
     let random = new Date().getDay();
     for (let i = 0; i < letterClues; i++) {
-        if (i * 7 + random > correctWord.length) {
+        if (i * 7 + random > correctWord.length - 1) {
             revealed.push(i * 7 + random - correctWord.length);
         } else {
             revealed.push(i * 7 + random);
