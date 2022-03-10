@@ -205,7 +205,7 @@ function checkGuess() {
 };
 
 function displayLost() {
-    shareMessage = `I couldn't guess today's Word! Try guessing it at: `;
+    shareMessage = `I couldn't guess today's Word! Try guessing it! `;
 
     $('.popup-result h1').text('Awww sorry');
     $('#showWord').text(correctWord.toUpperCase());
@@ -217,7 +217,7 @@ function displayLost() {
 }
 
 function displayWin(stars) {
-    shareMessage = `I guessed today's Word! and got ${stars}⭐️. Challenge me at: `;
+    shareMessage = `I guessed today's Word! and got ${stars}⭐️. Wanna challenge me? `;
 
     $('.popup-result h1').text(`Yasss!`);
     $('#lostText').remove();
@@ -241,7 +241,13 @@ function countdown() {
         tomorrow.setDate(tomorrow.getDate() + 1);
         tomorrow.setHours(0, 0, 0, 0);
 
-        const total = Date.parse(tomorrow) - Date.parse(today);
+        let total
+        if(getTodaysDt() !== localStorage.getItem(played.LAST_PLAYED)) {
+            total = 0;
+        } else {
+            total = Date.parse(tomorrow) - Date.parse(today);
+        };
+
         const seconds = ('0' + Math.floor((total / 1000) % 60)).slice(-2);
         const minutes = ('0' + Math.floor((total / 1000 / 60) % 60)).slice(-2);
         const hours = ('0' + Math.floor((total / (1000 * 60 * 60)) % 24)).slice(-2);
@@ -399,7 +405,7 @@ $('.sharestat').on('click', '#share-stat', function () {
     navigator.share({
         title: 'Play Word!',
         url: 'https://word.dailybrainplay.com/',
-        text: `I've won a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  Try it too at:`
+        text: `I've won a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  Try it too! `
     }).then(() => {
         console.log('Thanks for sharing!');
     })

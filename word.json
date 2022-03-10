@@ -1,0 +1,18 @@
+{
+    "dailyWords": [
+    { "word": "FIELD", "clueList": ["SPORTS", "LAND", "CORN", "WRIGLEY", "SALLY"] },
+    { "word": "HUDDLE", "clueList": ["TOGETHER", "FOOTBALL", "PLAY", "INSTRUCTIONS", "GATHER"] },
+    { "word": "PULSE", "clueList": ["HEARTBEAT", "RATE", "TAKE", "WRIST", "COUNT"] },
+    { "word": "PASSWORD", "clueList": ["SECRET", "ACCESS", "PROTECT", "COMPUTER", "CONFIDENTIAL"] },
+    { "word": "QUACK", "clueList": ["DUCK", "NOISE", "WADDLE", "AFLAC", "DOCTOR"] },
+    { "word": "SHOULDER", "clueList": ["ARM", "JOINT", "CRY", "DISLOCATE", "COLD"] },
+    { "word": "BARGAIN", "clueList": ["SALE", "CHEAP", "PRICE", "HAGGLE", "DEAL"] },
+    { "word": "DREAM", "clueList": ["SLEEP", "IMAGE", "R.E.M.", "HAGGLE", "DEAL"] },
+    { "word": "STEPMOTHER", "clueList": ["SPOUSE", "FATHER", "MARRY", "EVIL", "PARENT"] },
+    { "word": "ASTEROID", "clueList": ["SPACE", "BELT", "METEOR", "ARMAGEDDON", "BRUCE WILLIS"] },
+    { "word": "TUMBLER", "clueList": ["DRINKING", "GLASS", "ACROBAT", "GYMNAST", "LOCK"] },
+    { "word": "KENNEL", "clueList": ["DOGS", "BOARD", "CANINE", "HOTEL", "KEEP"] },
+    { "word": "TABLET", "clueList": ["PAD", "PAPER", "PILL", "MOSES", "IPAD"] },
+    { "word": "CHIROPRACTOR", "clueList": ["BACK", "SPINE", "MANIPULATE", "ADJUST", "TREAT"] }
+    ]
+}
