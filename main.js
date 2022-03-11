@@ -1,4 +1,4 @@
-// local storage
+
 const played = {
     TOTAL_STARS: 'lifetime stars',
     TOTAL_GAMES: 'lifetime games',
@@ -9,7 +9,6 @@ const played = {
     GAME_LETTERS: 'current day revealed indices'
 }
 
-// variables
 const clues = document.getElementsByClassName('clues');
 const wordInput = document.getElementById('inputSpan');
 
@@ -32,7 +31,6 @@ let remainingStars;
 
 let shareMessage = '';
 
-// handlers
 window.addEventListener('keyup', nextInputBox);
 $(document).click(function (e) {
     if (e.target.id === 'help' || e.target.id === 'submit' || e.target.id === 'next' || e.target.id === 'letter' || e.target.id === 'statBtn' || e.target.id === 'yes' || e.target.id === 'no') return false;
@@ -52,8 +50,6 @@ $('#submit').click(confirmSubmission);
 $('#letter').click(addLetter);
 
 
-// functions
-
 $(document).ready(function() {getWord(function(p) {
     dailyWords = p
     correctWord = dailyWords[wordToday].word; 
@@ -61,6 +57,14 @@ $(document).ready(function() {getWord(function(p) {
     startup();
 });
 });
+
+function getWord(cb) {
+    $.getJSON("./s2rl3s.json", function(data){
+        cb(data.dailyWords)
+    }).fail(function(){
+        console.log("An error has occurred.")
+    });
+};
 
 function startup() {
     setUpWordOfDay();
@@ -72,12 +76,14 @@ function startup() {
             $(`.inputs:nth-child(${i + 1})`).val(`${correctWord.substring(i, i + 1)}`);
             $(`.inputs:nth-child(${i + 1})`).attr('disabled', 'disabled');
         };
+        revealRemainingClues();
         $('#next').off();
         $('#submit').off();
         $('#letter').off();
         displayWin(localStorage.getItem(played.GAME_STARS));
     } else if (localStorage.getItem(played.GAME_RESULT) == 'lost') {
         $(`.inputs`).attr('disabled', 'disabled');
+        revealRemainingClues();
         $('#next').off();
         $('#submit').off();
         $('#letter').off();
@@ -96,18 +102,76 @@ function startup() {
     };
 };
 
-function getWord(cb) {
-    $.getJSON("./s2rl3s.json", function(data){
-        cb(data.dailyWords)
-    }).fail(function(){
-        console.log("An error has occurred.")
-    });
-};
-
 function setUpWordOfDay() {
     for (let i = 0; i < correctWord.length; i++) {
         $(wordInput).append(`<input type="text" maxlength="1" class="inputs"></input>`);
     };
+};
+
+function getTodaysDt() {
+    const dt = new Date();
+    return `${dt.getMonth() + 1}/${dt.getDate()}/${dt.getFullYear()}`;
+};
+
+function getTodaysState() {
+    const lastPlayed = localStorage.getItem(played.LAST_PLAYED);
+    const todaysDt = getTodaysDt();
+    if (lastPlayed != todaysDt) {
+        localStorage.setItem(played.LAST_PLAYED, todaysDt);
+        localStorage.removeItem(played.GAME_CLUES);
+        localStorage.removeItem(played.GAME_RESULT);
+        localStorage.removeItem(played.GAME_STARS);
+        localStorage.removeItem(played.GAME_LETTERS);
+    };
+
+    cluesShown = +localStorage.getItem(played.GAME_CLUES) || 1;
+    stars = 0;
+    totalGames = +localStorage.getItem(played.TOTAL_GAMES) || 0;
+    totalStars = +localStorage.getItem(played.TOTAL_STARS) || 0;
+    revealed = localStorage.getItem(played.GAME_LETTERS) || [];
+    if (revealed.length > 0) {
+        revealed = revealed.split(',');
+        revealed = revealed.map(x => +x);
+    };
+    lettersShown = revealed.length;
+
+    remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
+};
+
+function updateRunningStars() {
+    remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
+    $('.counter').empty();
+    let num;
+    for (num = 2; num <= remainingStars + 1; num++) {
+        $(`.counter:nth-child(${num})`).append(`<i class="fa fa-solid fa-circle"></i>`);
+    }
+    if (remainingStars % 1 !== 0) {
+        $(`.counter:nth-child(${num})`).append('<i class="fa fa-solid fa-circle-half-stroke"></i>');
+        num++;
+    };
+    if (num <= 6) {
+        for (let i = num; i <= 6; i++) {
+            $(`.counter:nth-child(${i})`).append('<i class="fa fa-regular fa-circle"></i>');
+        };
+    };
+};
+
+function showSomeLetters() {
+    let letterClues = Math.floor(correctWord.length * .2);
+    let random = new Date().getDay();
+    for (let i = 0; i < letterClues; i++) {
+        if (i * 7 + random > correctWord.length - 1) {
+            revealed.push(i * 7 + random - correctWord.length);
+        } else {
+            revealed.push(i * 7 + random);
+        };
+    };
+    for (let i = 0; i < letterClues; i++) {
+        $(`.inputs:nth-child(${revealed[i] + 1})`).val(`${correctWord.substring(revealed[i], revealed[i] + 1)}`);
+        $(`.inputs:nth-child(${revealed[i] + 1})`).attr('disabled', 'disabled');
+    };
+    lettersShown += letterClues;
+    localStorage.setItem(played.GAME_LETTERS, revealed);
 };
 
 function showNextClue() {
@@ -123,6 +187,40 @@ function showNextClue() {
     };
 };
 
+function addLetter() {
+    let added = lettersShown - Math.floor(correctWord.length * .2);
+    if (lettersShown < Math.ceil(correctWord.length / 2)) {
+        if (remainingStars <= 1) {
+            $('.popup-error p').text(`You don't have enough stars to reveal another letter.`);
+            $('.popup-error').show();
+            return;
+        } else {
+            let random = [3, 1, 4, 2];
+            let available = [];
+            let newReveal;
+            for (let i = 0; i < correctWord.length; i++) {
+                available.push(i);
+            };
+            available = available.filter(x => !revealed.includes(x));
+            if (random[added] > available.length) {
+                newReveal = Math.floor(random[added] % available.length);
+            } else {
+                newReveal = random[added];
+            };
+            revealed.push(available[newReveal])
+            $(`.inputs:nth-child(${revealed[revealed.length - 1] + 1})`).val(`${correctWord.substring(revealed[revealed.length - 1], revealed[revealed.length - 1] + 1)}`);
+            $(`.inputs:nth-child(${revealed[revealed.length - 1] + 1})`).attr('disabled', 'disabled');
+
+            lettersShown++;
+            localStorage.setItem(played.GAME_LETTERS, revealed);
+            updateRunningStars();
+        };
+    } else {
+        $('.popup-error p').text('Maximum possible letters already revealed.');
+        $('.popup-error').show();
+        return;
+    };
+};
 
 function nextInputBox(e) {
     let available = [];
@@ -168,6 +266,8 @@ function checkGuess() {
         totalGames++;
         totalStars += stars;
 
+        revealRemainingClues();
+
         $('#next').off();
         $('#submit').off();
         $('#letter').off();
@@ -183,6 +283,8 @@ function checkGuess() {
         totalGames++;
         totalStars += stars;
 
+        revealRemainingClues();
+
         $('#next').off();
         $('#submit').off();
         $('#letter').off();
@@ -195,6 +297,15 @@ function checkGuess() {
         displayLost();
     };
 
+};
+
+function revealRemainingClues(){
+    if(cluesShown < 5){
+        for (let i = cluesShown; i < 5; i++){
+        clues[i].textContent = clueList[i].toUpperCase();
+        clues[i].style.color = '#F0F0F0';
+        };
+    };
 };
 
 function displayLost() {
@@ -254,108 +365,6 @@ function countdown() {
             location.reload();
         };
     });
-};
-
-
-function getTodaysDt() {
-    const dt = new Date();
-    return `${dt.getMonth() + 1}/${dt.getDate()}/${dt.getFullYear()}`;
-};
-
-function getTodaysState() {
-    const lastPlayed = localStorage.getItem(played.LAST_PLAYED);
-    const todaysDt = getTodaysDt();
-    if (lastPlayed != todaysDt) {
-        localStorage.setItem(played.LAST_PLAYED, todaysDt);
-        localStorage.removeItem(played.GAME_CLUES);
-        localStorage.removeItem(played.GAME_RESULT);
-        localStorage.removeItem(played.GAME_STARS);
-        localStorage.removeItem(played.GAME_LETTERS);
-    };
-
-    cluesShown = +localStorage.getItem(played.GAME_CLUES) || 1;
-    stars = 0;
-    totalGames = +localStorage.getItem(played.TOTAL_GAMES) || 0;
-    totalStars = +localStorage.getItem(played.TOTAL_STARS) || 0;
-    revealed = localStorage.getItem(played.GAME_LETTERS) || [];
-    if (revealed.length > 0) {
-        revealed = revealed.split(',');
-        revealed = revealed.map(x => +x);
-    };
-    lettersShown = revealed.length;
-
-    remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
-};
-
-function showSomeLetters() {
-    let letterClues = Math.floor(correctWord.length * .2);
-    let random = new Date().getDay();
-    for (let i = 0; i < letterClues; i++) {
-        if (i * 7 + random > correctWord.length - 1) {
-            revealed.push(i * 7 + random - correctWord.length);
-        } else {
-            revealed.push(i * 7 + random);
-        };
-    };
-    for (let i = 0; i < letterClues; i++) {
-        $(`.inputs:nth-child(${revealed[i] + 1})`).val(`${correctWord.substring(revealed[i], revealed[i] + 1)}`);
-        $(`.inputs:nth-child(${revealed[i] + 1})`).attr('disabled', 'disabled');
-    };
-    lettersShown += letterClues;
-    localStorage.setItem(played.GAME_LETTERS, revealed);
-}
-
-function addLetter() {
-    let added = lettersShown - Math.floor(correctWord.length * .2);
-    if (lettersShown < Math.ceil(correctWord.length / 2)) {
-        if (remainingStars <= 1) {
-            $('.popup-error p').text(`You don't have enough stars to reveal another letter.`);
-            $('.popup-error').show();
-            return;
-        } else {
-            let random = [3, 1, 4, 2];
-            let available = [];
-            let newReveal;
-            for (let i = 0; i < correctWord.length; i++) {
-                available.push(i);
-            };
-            available = available.filter(x => !revealed.includes(x));
-            if (random[added] > available.length) {
-                newReveal = Math.floor(random[added] % available.length);
-            } else {
-                newReveal = random[added];
-            };
-            revealed.push(available[newReveal])
-            $(`.inputs:nth-child(${revealed[revealed.length - 1] + 1})`).val(`${correctWord.substring(revealed[revealed.length - 1], revealed[revealed.length - 1] + 1)}`);
-            $(`.inputs:nth-child(${revealed[revealed.length - 1] + 1})`).attr('disabled', 'disabled');
-
-            lettersShown++;
-            localStorage.setItem(played.GAME_LETTERS, revealed);
-            updateRunningStars();
-        };
-    } else {
-        $('.popup-error p').text('Maximum possible letters already revealed.');
-        $('.popup-error').show();
-        return;
-    }
-}
-
-function updateRunningStars() {
-    remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
-    $('.counter').empty();
-    let num;
-    for (num = 2; num <= remainingStars + 1; num++) {
-        $(`.counter:nth-child(${num})`).append(`<i class="fa fa-solid fa-circle"></i>`);
-    }
-    if (remainingStars % 1 !== 0) {
-        $(`.counter:nth-child(${num})`).append('<i class="fa fa-solid fa-circle-half-stroke"></i>');
-        num++;
-    };
-    if (num <= 6) {
-        for (let i = num; i <= 6; i++) {
-            $(`.counter:nth-child(${i})`).append('<i class="fa fa-regular fa-circle"></i>');
-        };
-    };
 };
 
 function showStats() {
@@ -441,4 +450,4 @@ document.onkeydown = function (e) {
     if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
         return false;
     }
-}
+};
