@@ -5,20 +5,18 @@
     { "word": "PULSE", "clueList": ["HEARTBEAT", "RATE", "TAKE", "WRIST", "COUNT"] },
     { "word": "PASSWORD", "clueList": ["SECRET", "ACCESS", "PROTECT", "COMPUTER", "CONFIDENTIAL"] },
     { "word": "BARGAIN", "clueList": ["SALE", "CHEAP", "PRICE", "HAGGLE", "DEAL"] },
-    { "word": "DREAM", "clueList": ["SLEEP", "IMAGE", "R.E.M.", "HAGGLE", "DEAL"] },
     { "word": "SHOULDER", "clueList": ["ARM", "JOINT", "CRY", "DISLOCATE", "COLD"] },
     { "word": "STEPMOTHER", "clueList": ["SPOUSE", "FATHER", "MARRY", "EVIL", "PARENT"] },
-    { "word": "QUACK", "clueList": ["DUCK", "NOISE", "WADDLE", "AFLAC", "DOCTOR"] },
-    { "word": "ASTEROID", "clueList": ["SPACE", "BELT", "METEOR", "ARMAGEDDON", "BRUCE WILLIS"] },
-    { "word": "TUMBLER", "clueList": ["DRINKING", "GLASS", "ACROBAT", "GYMNAST", "LOCK"] },
     { "word": "KENNEL", "clueList": ["DOGS", "BOARD", "CANINE", "HOTEL", "KEEP"] },
+    { "word": "ASTEROID", "clueList": ["SPACE", "BELT", "METEOR", "ARMAGEDDON", "BRUCE WILLIS"] },
     { "word": "TABLET", "clueList": ["PAD", "PAPER", "PILL", "MOSES", "IPAD"] },
+    { "word": "TUMBLER", "clueList": ["DRINKING", "GLASS", "ACROBAT", "GYMNAST", "LOCK"] },
     { "word": "BLING", "clueList": ["SHINY", "JEWELRY", "GLITTER", "FLASHY", "SLANG"] },
     { "word": "INFINITY", "clueList": ["FOREVER", "ETERNAL", "NEVERENDING", "LUXURY", "CAR"] },
     { "word": "CHIROPRACTOR", "clueList": ["BACK", "SPINE", "MANIPULATE", "ADJUST", "TREAT"] },
     { "word": "TREADMILL", "clueList": ["WALK", "GYM", "MACHINE", "STEP", "FAST"] },
     { "word": "CRUISE", "clueList": ["SAIL", "LEISURE", "PENELOPE", "MISSILE", "TOM"] },
-    { "word": "POLYGAMY", "clueList": ["WED", "PLURAL", "WIVES", "MORMON", "BIG LOVE"] },
-    { "word": "CHUCK", "clueList": ["MEAT", "HAMBURGER", "WAGON", "THROW", "NORRIS"] }
+    { "word": "CHUCK", "clueList": ["MEAT", "HAMBURGER", "WAGON", "THROW", "NORRIS"] },
+    { "word": "POLYGAMY", "clueList": ["WED", "PLURAL", "WIVES", "MORMON", "BIG LOVE"] }
     ]
 }
