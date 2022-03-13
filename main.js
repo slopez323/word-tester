@@ -184,6 +184,9 @@ function showNextClue() {
         cluesShown++;
         localStorage.setItem(played.GAME_CLUES, cluesShown);
         updateRunningStars();
+    } else if (cluesShown === 5){
+        $('.popup-error p').text(`You've already revealed all 5 clues.`);
+        $('.popup-error').show();
     };
 };
 
@@ -216,7 +219,7 @@ function addLetter() {
             updateRunningStars();
         };
     } else {
-        $('.popup-error p').text('Maximum possible letters already revealed.');
+        $('.popup-error p').text(`You've already revealed half the word length.`);
         $('.popup-error').show();
         return;
     };
