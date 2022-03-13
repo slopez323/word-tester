@@ -9,6 +9,24 @@ const played = {
     GAME_LETTERS: 'current day revealed indices'
 }
 
+const analytics = {
+    START_NEW: "start_new_game",
+    ADD_LETTER: "added_letter",
+    SUBMIT_CLICK: "clicked_submit",
+    MAX_LETTERS: "maxed_out_letters",
+    MAX_STARS: "maxed_out_stars",
+    MAX_CLUES: "maxed_out_clues",
+    ADD_CLUE: "added_clue",
+    CANCEL_SUBMIT: "cancelled_submit",
+    WIN_GAME: "won_info",
+    LOSE_GAME: "lost_info",
+    INFO_CLICK: "clicked_info_icon",
+    STAT_CLICK: "clicked_stat_icon",
+    MENU_CLICK: "clicked_menu_icon",
+    SHARE_GAME_CLICK: "share_end_game",
+    SHARE_STAT_CLICK: "share_stats"
+};
+
 const clues = document.getElementsByClassName('clues');
 const wordInput = document.getElementById('inputSpan');
 
@@ -42,28 +60,38 @@ $(document).click(function (e) {
 document.addEventListener("touchstart", function () { }, false);
 
 $('.exitBtn').click(function () { $('.popup').hide() });
-$('#menu').click(function () { $('.nav-list').toggleClass('visible') });
-$('#help').click(function () { $('.popup-instructions').show() });
+$('#menu').click(function () {
+     $('.nav-list').toggleClass('visible');
+     sendEvent(analytics.MENU_CLICK); 
+    });
+$('#help').click(function () {
+     $('.popup-instructions').show(); 
+     sendEvent(analytics.INFO_CLICK);
+    });
 $('#statBtn').click(showStatPopup);
 $('#yes').click(checkGuess);
-$('#no').click(function () { $('.popup').hide() });
+$('#no').click(function () {
+    $('.popup').hide();
+    sendEvent(analytics.CANCEL_SUBMIT);
+});
 $('#next').click(showNextClue);
 $('#submit').click(confirmSubmission);
 $('#letter').click(addLetter);
 
 
-$(document).ready(function() {getWord(function(p) {
-    dailyWords = p
-    correctWord = dailyWords[wordToday].word; 
-    clueList = dailyWords[wordToday].clueList;
-    startup();
-});
+$(document).ready(function () {
+    getWord(function (p) {
+        dailyWords = p
+        correctWord = dailyWords[wordToday].word;
+        clueList = dailyWords[wordToday].clueList;
+        startup();
+    });
 });
 
 function getWord(cb) {
-    $.getJSON("./s2rl3s.json", function(data){
+    $.getJSON("./s2rl3s.json", function (data) {
         cb(data.dailyWords)
-    }).fail(function(){
+    }).fail(function () {
         console.log("An error has occurred.")
     });
 };
@@ -124,6 +152,7 @@ function getTodaysState() {
         localStorage.removeItem(played.GAME_RESULT);
         localStorage.removeItem(played.GAME_STARS);
         localStorage.removeItem(played.GAME_LETTERS);
+        sendEvent(analytics.START_NEW, {day: new Date().getDay(), hour:new Date().getHours()})
     };
 
     cluesShown = +localStorage.getItem(played.GAME_CLUES) || 1;
@@ -180,15 +209,18 @@ function showNextClue() {
     if (remainingStars <= 0.5) {
         $('.popup-error p').text(`You don't have enough stars to reveal another clue.`);
         $('.popup-error').show();
+        sendEvent(analytics.MAX_STARS);
         return;
     } else if (cluesShown < 5) {
         clues[cluesShown].textContent = clueList[cluesShown].toUpperCase();
         cluesShown++;
         localStorage.setItem(played.GAME_CLUES, cluesShown);
         updateRunningStars();
-    } else if (cluesShown === 5){
+        sendEvent(analytics.ADD_CLUE);
+    } else if (cluesShown === 5) {
         $('.popup-error p').text(`You've already revealed all 5 clues.`);
         $('.popup-error').show();
+        sendEvent(analytics.MAX_CLUES);
     };
 };
 
@@ -198,6 +230,7 @@ function addLetter() {
         if (remainingStars <= 1) {
             $('.popup-error p').text(`You don't have enough stars to reveal another letter.`);
             $('.popup-error').show();
+            sendEvent(analytics.MAX_STARS);
             return;
         } else {
             let random = [3, 1, 4, 2];
@@ -220,9 +253,11 @@ function addLetter() {
             localStorage.setItem(played.GAME_LETTERS, revealed);
             updateRunningStars();
         };
+        sendEvent(analytics.ADD_LETTER);
     } else {
         $('.popup-error p').text(`You've already revealed half the word length.`);
         $('.popup-error').show();
+        sendEvent(analytics.MAX_LETTERS);
         return;
     };
 };
@@ -245,6 +280,7 @@ function nextInputBox(e) {
 };
 
 function confirmSubmission() {
+    sendEvent(analytics.SUBMIT_CLICK);
     let guess = '';
     for (let i = 0; i < correctWord.length; i++) {
         guess += $(`.inputs:nth-child(${i + 1})`).val();
@@ -283,9 +319,11 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'won');
         localStorage.setItem(played.GAME_STARS, stars);
+        sendEvent(analytics.WIN_GAME, {stars: localStorage.getItem(played.GAME_STARS), word: correctWord, total_games: localStorage.getItem(played.TOTAL_GAMES)});
         displayWin(stars);
     } else {
         totalGames++;
+        stars = 0;
         totalStars += stars;
 
         revealRemainingClues();
@@ -298,17 +336,18 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_GAMES, totalGames);
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'lost');
+        sendEvent(analytics.LOSE_GAME, {user_guess:guess, word: correctWord, clues_shown:cluesShown, letters_shown:lettersShown, total_games: localStorage.getItem(played.TOTAL_GAMES)});
 
         displayLost();
     };
 
 };
 
-function revealRemainingClues(){
-    if(cluesShown < 5){
-        for (let i = cluesShown; i < 5; i++){
-        clues[i].textContent = clueList[i].toUpperCase();
-        clues[i].style.color = '#F0F0F0';
+function revealRemainingClues() {
+    if (cluesShown < 5) {
+        for (let i = cluesShown; i < 5; i++) {
+            clues[i].textContent = clueList[i].toUpperCase();
+            clues[i].style.color = '#F0F0F0';
         };
     };
 };
@@ -351,7 +390,7 @@ function countdown() {
         tomorrow.setHours(0, 0, 0, 0);
 
         let total
-        if(getTodaysDt() !== localStorage.getItem(played.LAST_PLAYED)) {
+        if (getTodaysDt() !== localStorage.getItem(played.LAST_PLAYED)) {
             total = 0;
         } else {
             total = Date.parse(tomorrow) - Date.parse(today);
@@ -385,6 +424,7 @@ function showStats() {
 };
 
 function showStatPopup() {
+    sendEvent(analytics.STAT_CLICK);
     showStats();
     $('.popup-stats').show();
 };
@@ -398,6 +438,7 @@ if (navigator.share) {
 } else $('.sharediv').remove();
 
 $('.shareresult').on('click', '#share-result', function () {
+    sendEvent(analytics.SHARE_GAME_CLICK, {stars: localStorage.getItem(played.GAME_STARS), word:correctWord});
     navigator.share({
         title: 'Play Word!',
         url: 'https://word.dailybrainplay.com/',
@@ -409,6 +450,7 @@ $('.shareresult').on('click', '#share-result', function () {
 });
 
 $('.sharestat').on('click', '#share-stat', function () {
+    sendEvent(analytics.SHARE_STAT_CLICK, {total_stars: localStorage.getItem(played.TOTAL_STARS), total_games: localStorage.getItem(played.TOTAL_GAMES)});
     navigator.share({
         title: 'Play Word!',
         url: 'https://word.dailybrainplay.com/',
@@ -418,6 +460,12 @@ $('.sharestat').on('click', '#share-stat', function () {
     })
         .catch(console.error);
 });
+
+function sendEvent(action, values) {
+    if (window.gtag) {
+        gtag("event", action, { data: JSON.stringify(values) });
+    };
+};
 
 document.addEventListener('contextmenu', event => event.preventDefault());
 
