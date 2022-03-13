@@ -33,14 +33,16 @@ let shareMessage = '';
 
 window.addEventListener('keyup', nextInputBox);
 $(document).click(function (e) {
-    if (e.target.id === 'help' || e.target.id === 'submit' || e.target.id === 'next' || e.target.id === 'letter' || e.target.id === 'statBtn' || e.target.id === 'yes' || e.target.id === 'no') return false;
+    if (e.target.id === 'menu' || e.target.id === 'help' || e.target.id === 'submit' || e.target.id === 'next' || e.target.id === 'letter' || e.target.id === 'statBtn' || e.target.id === 'yes' || e.target.id === 'no') return false;
     if ($(e.target).closest('.instructions').length != 0) return false;
     if ($(e.target).closest('.standard-popup').length != 0) return false;
     $('.popup').hide();
+    $('.nav-list').removeClass('visible');
 });
 document.addEventListener("touchstart", function () { }, false);
 
 $('.exitBtn').click(function () { $('.popup').hide() });
+$('#menu').click(function () { $('.nav-list').toggleClass('visible') });
 $('#help').click(function () { $('.popup-instructions').show() });
 $('#statBtn').click(showStatPopup);
 $('#yes').click(checkGuess);

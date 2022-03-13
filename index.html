@@ -7,10 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Pacifico&family=PT+Sans+Narrow&family=Inconsolata:wght@400;600&family=Kreon&display=swap" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Pacifico&family=PT+Sans+Narrow&family=Inconsolata:wght@400;600&family=Rock+Salt&family=Special+Elite&display=swap" rel="stylesheet">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -22,7 +19,7 @@
 
     <script src="https://kit.fontawesome.com/b1efd90343.js" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="styles.css?ts=1647186806500">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -56,6 +53,7 @@
 </head>
 
 <body>
+    
     <div class="main">
         <div class="card">
             <div class="title">Word!</div>
@@ -84,10 +82,26 @@
                 <button id="letter">Reveal 1 letter for <i class="fa fa-solid fa-star"></i></button>
 
             </div>
+            <span><i class="fa fa-solid fa-bars" id="menu"></i></span>
             <span><i class="fa fa-solid fa-circle-info" id="help"></i></span>
-            <span><i class="fa fa-solid fa-bars-progress" id="statBtn"></i></span>
-        </div>
+            <span><i class="fa fa-solid fa-chart-bar" id="statBtn"></i></span>
 
+            <nav class="main-nav game-actions">
+                <ul class="nav-list">
+                    <li class="parent">
+                        <a href="https://dailybrainplay.com/" target="_blank"><span>Daily.</span><span>Brain.</span><span>Play.</span></a>
+                    </li>
+                    <li class="gphrazy">
+                        <a href="https://getphrazy.com/" target="_blank"><span>get</span><strong>Phrazy</strong></a>
+                    </li>
+                    <li class="word">
+                        <a href="https://word.dailybrainplay.com/" target="_blank"><span>Word!</span></a>
+                    </li>
+                    <a href="mailto:info@dailybrainplay.com" class="email"><i class="fa fa-solid fa-envelope" aria-hidden="true"></i>info@dailybrainplay.com</a>
+                </ul>
+            </nav>
+        </div>
+        
     </div>
 
     <div class="popup popup-instructions">
@@ -184,7 +198,7 @@
         </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="main.js?ts=1647186806500"></script>
 </body>
 
 </html>

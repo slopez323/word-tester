@@ -126,6 +126,13 @@ input{
     transition: .1s;
 }
 
+#menu{
+    font-size: 20px;
+    position: absolute;
+    top:20px;
+    left:20px;
+}
+
 #help{
     font-size: 20px;
     position: absolute;
@@ -138,6 +145,7 @@ input{
     position: absolute;
     bottom:10px;
     right:50px;
+    transform: scaleX(-1) rotate(-90deg);
 }
 
 .share{
@@ -349,6 +357,92 @@ h5{
     margin: 0 0 10px 0;
 }
 
+.nav-list{
+    position: absolute;
+    width: 200px;
+    padding: 16px;
+    box-sizing: border-box;
+    background: white;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+    min-height: 280px;
+    border-radius: 4px;
+    top: 45px;
+    left: 20px;
+    list-style: none;
+    transform: scale(0.6);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.2s ease-in-out, visibility 0s ease-in-out 0.2s;
+    transform-origin: top left;
+}
+.nav-list.visible {
+    transform: scale(1);
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.2s ease-in-out  0.2s, visibility 0s ease-in-out;
+}
+.nav-list li a {
+    text-decoration: none;
+    display: block;
+}
+.nav-list li.parent {
+    /* box-shadow: 0px 18px 8px -18px rgb(0 0 0 / 15%); */
+    padding-bottom: 8px;
+    text-align: left;
+    margin: 0;
+}
+.nav-list li.parent span {
+    font-family: 'Syncopate', sans-serif;
+    font-size: 18px;
+    color: black;
+    text-transform: uppercase;
+    display: block;
+}
+.nav-list li:not(.parent) {
+    cursor: pointer;
+    margin: 0 0 8px 0;
+    text-align: center;
+}
+.nav-list .gphrazy {
+    background: #355071;
+    font-size: 12px;
+    padding: 16px 0;
+}
+.nav-list .gphrazy span{
+    font-family: 'Special Elite', cursive;
+    font-size: 1em;
+    color: #ccc;
+}
+.nav-list .gphrazy strong{
+    font-family: 'Rock Salt', cursive;
+    line-height: 1em;
+    font-size: 1.6em;
+    color: #ccc;
+}
+.nav-list .word {
+    background-color: #E5DCC8;
+    padding: 13px 0;
+}
+.nav-list .word span {
+    color: #003314;
+    font-family: 'Pacifico', cursive;
+    font-size: 25px;
+    line-height: 1em;
+}
+.nav-list .email {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    font-size: .8em;
+    color: black;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.nav-list .email i {
+    padding: 8px 4px;
+}
 
 @media (max-width: 450px) {
     .card{
@@ -361,17 +455,23 @@ h5{
     .button{
         flex-direction: column-reverse;
     }
+    #menu{
+        top: 20px;
+        left:15px;
+        bottom: auto;
+        right: auto; 
+    }
     #help{
         top: 20px;
-        right:20px;
+        right:15px;
         bottom: auto;
         left: auto;
     }
     #statBtn{
         top: 20px;
-        left: 20px;
+        right: 45px;
         bottom: auto;
-        right: auto;
+        left: auto;
     }
     #submit, #next, #letter{
         padding: 8px;
@@ -401,7 +501,7 @@ h5{
         color: #E5DCC8;
         cursor: pointer;
     }
-    #help:hover, #statBtn:hover{
+    #help:hover, #statBtn:hover, #menu:hover{
         color:#8F5100;
         cursor: pointer;
     }
