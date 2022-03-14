@@ -444,7 +444,7 @@ h5{
     padding: 8px 4px;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 767px) {
     .card{
         flex-direction: column;
         margin-top:10px;
