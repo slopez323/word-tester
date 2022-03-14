@@ -482,6 +482,19 @@ h5{
         padding-right: 2px;
     }
 }
+
+@media (max-width: 364px){
+    input{
+        width: 14px;
+    }
+    #statBtn{
+        top: 50px;
+        right: 15px;
+    }
+    .instructions, .standard-popup{
+        min-width: 230px;
+    }
+}
   
 @media (hover: hover){
     .exitBtn:hover{
