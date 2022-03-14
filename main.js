@@ -32,7 +32,19 @@ const wordInput = document.getElementById('inputSpan');
 
 const dateToday = new Date();
 const firstDay = new Date('03/07/2022');
-const wordToday = Math.floor((dateToday.getTime() - firstDay.getTime()) / (1000 * 3600 * 24));
+const wordToday = Math.floor(daysBetween(firstDay, dateToday));
+// const wordToday = Math.floor((dateToday.getTime() - firstDay.getTime()) / (1000 * 3600 * 24));
+
+function treatAsUTC(date) {
+    var result = new Date(date);
+    result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+    return result;
+}
+
+function daysBetween(startDate, endDate) {
+    var millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+}
 
 let correctWord;
 let dailyWords;
