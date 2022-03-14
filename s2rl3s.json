@@ -9,14 +9,13 @@
     { "word": "STEPMOTHER", "clueList": ["SPOUSE", "FATHER", "MARRY", "EVIL", "PARENT"] },
     { "word": "KENNEL", "clueList": ["DOGS", "BOARD", "CANINE", "HOTEL", "KEEP"] },
     { "word": "ASTEROID", "clueList": ["SPACE", "BELT", "METEOR", "ARMAGEDDON", "BRUCE WILLIS"] },
-    { "word": "TABLET", "clueList": ["PAD", "PAPER", "PILL", "MOSES", "IPAD"] },
-    { "word": "TUMBLER", "clueList": ["DRINKING", "GLASS", "ACROBAT", "GYMNAST", "LOCK"] },
-    { "word": "BLING", "clueList": ["SHINY", "JEWELRY", "GLITTER", "FLASHY", "SLANG"] },
-    { "word": "INFINITY", "clueList": ["FOREVER", "ETERNAL", "NEVERENDING", "LUXURY", "CAR"] },
-    { "word": "CHIROPRACTOR", "clueList": ["BACK", "SPINE", "MANIPULATE", "ADJUST", "TREAT"] },
     { "word": "TREADMILL", "clueList": ["WALK", "GYM", "MACHINE", "STEP", "FAST"] },
-    { "word": "CRUISE", "clueList": ["SAIL", "LEISURE", "PENELOPE", "MISSILE", "TOM"] },
+    { "word": "TUMBLER", "clueList": ["DRINKING", "GLASS", "ACROBAT", "GYMNAST", "LOCK"] },
+    { "word": "POLYGAMY", "clueList": ["WED", "PLURAL", "WIVES", "MORMON", "BIG LOVE"] },
+    { "word": "BLING", "clueList": ["SHINY", "JEWELRY", "GLITTER", "FLASHY", "SLANG"] },
     { "word": "CHUCK", "clueList": ["MEAT", "HAMBURGER", "WAGON", "THROW", "NORRIS"] },
-    { "word": "POLYGAMY", "clueList": ["WED", "PLURAL", "WIVES", "MORMON", "BIG LOVE"] }
+    { "word": "CRUISE", "clueList": ["SAIL", "LEISURE", "PENELOPE", "MISSILE", "TOM"] },
+    { "word": "CHIROPRACTOR", "clueList": ["BACK", "SPINE", "MANIPULATE", "ADJUST", "TREAT"] },
+    { "word": "INFINITY", "clueList": ["FOREVER", "ETERNAL", "NEVERENDING", "LUXURY", "CAR"] }
     ]
 }
