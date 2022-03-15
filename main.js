@@ -441,15 +441,15 @@ function showStatPopup() {
     $('.popup-stats').show();
 };
 
-let activeTime = new Date().getTime();
-$(document.body).bind("mousemove keypress touchstart", function () {
-    activeTime = new Date().getTime();
-});
+// let activeTime = new Date().getTime();
+// $(document.body).bind("mousemove keypress touchstart", function () {
+//     activeTime = new Date().getTime();
+// });
 
 setInterval(function() {
-    if (new Date().getTime() - activeTime >= 300000) {
-        window.location.reload(true);
-    }
+    // if (new Date().getTime() - activeTime >= 300000) {
+    //     window.location.reload(true);
+    // }
     if (localStorage.getItem(played.LAST_PLAYED) !== getTodaysDt()){
         window.location.reload(true);
     }
