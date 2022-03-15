@@ -6,7 +6,8 @@ const played = {
     GAME_CLUES: 'current day clues',
     GAME_RESULT: 'current day result',
     GAME_STARS: 'score today',
-    GAME_LETTERS: 'current day revealed indices'
+    GAME_LETTERS: 'current day revealed indices',
+    GAME_GUESS: 'current day user guess'
 }
 
 const analytics = {
@@ -33,7 +34,6 @@ const wordInput = document.getElementById('inputSpan');
 const dateToday = new Date();
 const firstDay = new Date('03/07/2022');
 const wordToday = Math.floor(daysBetween(firstDay, dateToday));
-// const wordToday = Math.floor((dateToday.getTime() - firstDay.getTime()) / (1000 * 3600 * 24));
 
 function treatAsUTC(date) {
     var result = new Date(date);
@@ -124,7 +124,10 @@ function startup() {
         $('#letter').off();
         displayWin(localStorage.getItem(played.GAME_STARS));
     } else if (localStorage.getItem(played.GAME_RESULT) == 'lost') {
-        $(`.inputs`).attr('disabled', 'disabled');
+        for (let i = 0; i < correctWord.length; i++) {
+            $(`.inputs:nth-child(${i + 1})`).val(`${localStorage.getItem(played.GAME_GUESS).substring(i, i + 1)}`);
+            $(`.inputs:nth-child(${i + 1})`).attr('disabled', 'disabled');
+        };
         revealRemainingClues();
         $('#next').off();
         $('#submit').off();
@@ -132,15 +135,15 @@ function startup() {
         displayLost();
     } else {
         $('.popup-instructions').show();
+        for (let i = 0; i < correctWord.length; i++) {
+            if (revealed.includes(i)) {
+                $(`.inputs:nth-child(${i + 1})`).val(`${correctWord.substring(i, i + 1)}`);
+                $(`.inputs:nth-child(${i + 1})`).attr('disabled', 'disabled');
+            };
+        };
     };
     for (let i = 0; i < cluesShown; i++) {
         clues[i].textContent = clueList[i].toUpperCase();
-    };
-    for (let i = 0; i < correctWord.length; i++) {
-        if (revealed.includes(i)) {
-            $(`.inputs:nth-child(${i + 1})`).val(`${correctWord.substring(i, i + 1)}`);
-            $(`.inputs:nth-child(${i + 1})`).attr('disabled', 'disabled');
-        };
     };
 };
 
@@ -164,6 +167,7 @@ function getTodaysState() {
         localStorage.removeItem(played.GAME_RESULT);
         localStorage.removeItem(played.GAME_STARS);
         localStorage.removeItem(played.GAME_LETTERS);
+        localStorage.removeItem(played.GAME_GUESS);
         sendEvent(analytics.START_NEW, {day: new Date().getDay(), hour:new Date().getHours()})
     };
 
@@ -348,6 +352,7 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_GAMES, totalGames);
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'lost');
+        localStorage.setItem(played.GAME_GUESS, guess);
         sendEvent(analytics.LOSE_GAME, {user_guess:guess, word: correctWord, clues_shown:cluesShown, letters_shown:lettersShown, total_games: localStorage.getItem(played.TOTAL_GAMES)});
 
         displayLost();
@@ -418,7 +423,7 @@ function countdown() {
 
         if (total = 0) {
             clearInterval(countdown);
-            location.reload();
+            // location.reload();
         };
     });
 };
