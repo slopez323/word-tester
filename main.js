@@ -441,6 +441,19 @@ function showStatPopup() {
     $('.popup-stats').show();
 };
 
+let activeTime = new Date().getTime();
+$(document.body).bind("mousemove keypress touchstart", function () {
+    activeTime = new Date().getTime();
+});
+
+setInterval(function() {
+    if (new Date().getTime() - activeTime >= 300000) {
+        window.location.reload(true);
+    }
+    if (localStorage.getItem(played.LAST_PLAYED) !== getTodaysDt()){
+        window.location.reload(true);
+    }
+}, 2000);
 
 if (navigator.share) {
     $('.shareresult').append(`<button class="share" id="share-result">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);
