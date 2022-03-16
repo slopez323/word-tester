@@ -463,8 +463,8 @@ $('.shareresult').on('click', '#share-result', function () {
     sendEvent(analytics.SHARE_GAME_CLICK, {stars: localStorage.getItem(played.GAME_STARS), word:correctWord});
     navigator.share({
         title: 'Play Word!',
-        // url: 'https://word.dailybrainplay.com/',
-        text: `${shareMessage}   https://word.dailybrainplay.com/`
+        url: 'https://word.dailybrainplay.com/',
+        text: `${shareMessage}`
     }).then(() => {
         console.log('Thanks for sharing!');
     })
