@@ -484,6 +484,9 @@ h5{
         right: 2px;
         padding-right: 2px;
     }
+    .nav-list{
+        left:15px;
+    }
 }
 
 @media (max-width: 364px){
