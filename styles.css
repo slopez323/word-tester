@@ -434,6 +434,7 @@ h5{
     width: 100%;
     text-align: center;
     color: lightgray;
+    padding-top: 45px;
 }
 
 .nav-list .contact {
@@ -442,7 +443,7 @@ h5{
     display: inline-block;
     align-items: center;
     text-decoration: none;
-    padding: 45px 20px 0 20px;
+    padding: 0 20px;
 }
 
 
