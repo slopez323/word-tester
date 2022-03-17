@@ -28,6 +28,7 @@ const analytics = {
     SHARE_STAT_CLICK: "share_stats"
 };
 
+const screenshotContainer = document.querySelector('#screenshotContainer');
 const clues = document.getElementsByClassName('clues');
 const wordInput = document.getElementById('inputSpan');
 
@@ -58,8 +59,6 @@ let revealed;
 let lettersShown;
 
 let remainingStars;
-
-let shareMessage = '';
 
 window.addEventListener('keyup', nextInputBox);
 $(document).click(function (e) {
@@ -370,8 +369,6 @@ function revealRemainingClues() {
 };
 
 function displayLost() {
-    shareMessage = `I couldn't guess today's Word! Can you? `;
-
     $('.popup-result h1').text('Awww sorry');
     $('#showWord').text(correctWord.toUpperCase());
     $('.stars').remove();
@@ -382,8 +379,6 @@ function displayLost() {
 }
 
 function displayWin(stars) {
-    shareMessage = `I guessed today's Word! and got ${stars}⭐️. Wanna challenge me? `;
-
     $('.popup-result h1').text(`Yasss!`);
     $('#lostText').remove();
     $('#showWord').remove();
@@ -454,33 +449,48 @@ setInterval(function() {
 
 if (navigator.share) {
     $('.shareresult').append(`<button class="share" id="share-result">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);
-    if (localStorage.getItem(played.TOTAL_GAMES) > 0) {
-        $('.sharestat').append(`<button class="share" id="share-stat">Share <i class="fa fa-solid fa-share-from-square"></i></button>`);
-    };
 } else $('.sharediv').remove();
 
-$('.shareresult').on('click', '#share-result', function () {
-    sendEvent(analytics.SHARE_GAME_CLICK, {stars: localStorage.getItem(played.GAME_STARS), word:correctWord});
-    navigator.share({
-        title: 'Play Word!',
-        url: 'https://word.dailybrainplay.com/',
-        text: `${shareMessage}`
-    }).then(() => {
-        console.log('Thanks for sharing!');
-    })
-        .catch(console.error);
-});
+async function share() {
+    if (!('share' in navigator)) {
+      return;
+    }
+    const canvas = await html2canvas(screenshotContainer);
+  
+    canvas.toBlob(async function (blob) {
+      const files = [new File([blob], 'image.png', { type: blob.type })];
+      const shareData = {
+        title: 'Word! | Daily Brain Play',
+        files,
+      };
+      if (navigator.canShare(shareData)) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            console.error(err.name, err.message);      
+          }
+        }
+      } else {
+        console.warn('Sharing not supported', shareData);            
+      }
+    });
+  };
 
-$('.sharestat').on('click', '#share-stat', function () {
-    sendEvent(analytics.SHARE_STAT_CLICK, {total_stars: localStorage.getItem(played.TOTAL_STARS), total_games: localStorage.getItem(played.TOTAL_GAMES)});
-    navigator.share({
-        title: 'Play Word!',
-        url: 'https://word.dailybrainplay.com/',
-        text: `I have a total of ${localStorage.getItem(played.TOTAL_STARS)}⭐️ after playing ${localStorage.getItem(played.TOTAL_GAMES)} game/s on Word!  What about you? `
-    }).then(() => {
-        console.log('Thanks for sharing!');
-    })
-        .catch(console.error);
+
+$('.shareresult').on('click', '#share-result', function(){
+    if(localStorage.getItem(played.GAME_RESULT) == 'won'){
+        $('#shareText').text(`Woot! 🙌🏼 Guessed the Word! today and got`);
+    } else if (localStorage.getItem(played.GAME_RESULT) == 'lost'){
+        $('#shareText').text(`Couldn't guess the Word! today 😖`);
+        $('.stars').hide();
+    }
+    showStats();
+    $('.popup-share').show();
+    share();
+    $('.popup-share').hide();
+    $('.popup-result').show();
+
 });
 
 function sendEvent(action, values) {
