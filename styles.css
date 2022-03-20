@@ -92,7 +92,7 @@ input{
     flex-direction: column;
     padding: 20px 0;
 
-    margin: 0 10px;
+    margin: 0 6px;
 }
 
 #submit, #next, #letter{
@@ -446,6 +446,18 @@ h5{
     padding: 0 20px;
 }
 
+li.update{
+    font-family: 'Inconsolata', monospace;
+    color:#810524b0;
+    font-size: 18px;
+}
+
+.update span{
+    font-family: 'Inconsolata', monospace;
+    color: #810524b0;
+    text-transform:uppercase;
+    font-weight: 900;
+}
 
 @media (max-width: 767px) and (orientation:portrait) {
     .card{

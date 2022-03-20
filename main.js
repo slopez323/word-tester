@@ -56,6 +56,7 @@ let totalGames;
 let totalStars;
 let revealed;
 let lettersShown;
+let guessArr;
 
 let remainingStars;
 
@@ -71,13 +72,13 @@ document.addEventListener("touchstart", function () { }, false);
 
 $('.exitBtn').click(function () { $('.popup').hide() });
 $('#menu').click(function () {
-     $('.nav-list').toggleClass('visible');
-     sendEvent(analytics.MENU_CLICK); 
-    });
+    $('.nav-list').toggleClass('visible');
+    sendEvent(analytics.MENU_CLICK);
+});
 $('#help').click(function () {
-     $('.popup-instructions').show(); 
-     sendEvent(analytics.INFO_CLICK);
-    });
+    $('.popup-instructions').show();
+    sendEvent(analytics.INFO_CLICK);
+});
 $('#statBtn').click(showStatPopup);
 $('#yes').click(checkGuess);
 $('#no').click(function () {
@@ -123,7 +124,8 @@ function startup() {
         displayWin(localStorage.getItem(played.GAME_STARS));
     } else if (localStorage.getItem(played.GAME_RESULT) == 'lost') {
         for (let i = 0; i < correctWord.length; i++) {
-            $(`.inputs:nth-child(${i + 1})`).val(`${localStorage.getItem(played.GAME_GUESS).substring(i, i + 1)}`);
+            $(`.inputs:nth-child(${i + 1})`).val(`${guessArr[guessArr.length - 1].substring(i, i + 1)}`);
+            // $(`.inputs:nth-child(${i + 1})`).val(`${localStorage.getItem(played.GAME_GUESS).substring(i, i + 1)}`);
             $(`.inputs:nth-child(${i + 1})`).attr('disabled', 'disabled');
         };
         revealRemainingClues();
@@ -166,12 +168,15 @@ function getTodaysState() {
         localStorage.removeItem(played.GAME_STARS);
         localStorage.removeItem(played.GAME_LETTERS);
         localStorage.removeItem(played.GAME_GUESS);
-        sendEvent(analytics.START_NEW, {day: new Date().getDay(), hour:new Date().getHours()})
+        sendEvent(analytics.START_NEW, { day: new Date().getDay(), hour: new Date().getHours() })
     };
 
     cluesShown = +localStorage.getItem(played.GAME_CLUES) || 1;
     totalGames = +localStorage.getItem(played.TOTAL_GAMES) || 0;
     totalStars = +localStorage.getItem(played.TOTAL_STARS) || 0;
+    guessArr = localStorage.getItem(played.GAME_GUESS) || [];
+    if (guessArr.length > 1) guessArr = guessArr.split(',');
+
     revealed = localStorage.getItem(played.GAME_LETTERS) || [];
     if (revealed.length > 0) {
         revealed = revealed.split(',');
@@ -182,7 +187,7 @@ function getTodaysState() {
     if (localStorage.getItem(played.GAME_RESULT) == 'lost') {
         remainingStars = 0;
     } else if (lettersShown > 0) {
-        remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
+        remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2)) - guessArr.length * 2;
     } else {
         remainingStars = 5;
     };
@@ -311,8 +316,20 @@ function confirmSubmission() {
         $('.popup-error').show();
         return;
     } else {
-        $('.popup-confirm').show();
-        return;
+        if (wordToday >= 15) { // ADDED FOR NEW FEATURE
+            if (remainingStars > 2) {
+                $('.popup-confirm p').text('A wrong guess is worth 2 stars so guess wisely!');
+                $('.popup-confirm').show();
+                return;
+            } else {
+                $('.popup-confirm p').text('You only have enough stars for 1 final guess.');
+                $('.popup-confirm').show();
+                return;
+            };
+        } else {
+            $('.popup-confirm').show();
+            return;
+        };
     };
 };
 
@@ -339,9 +356,23 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'won');
         localStorage.setItem(played.GAME_STARS, remainingStars);
-        sendEvent(analytics.WIN_GAME, {stars: localStorage.getItem(played.GAME_STARS), word: correctWord, total_games: localStorage.getItem(played.TOTAL_GAMES)});
+        sendEvent(analytics.WIN_GAME, { stars: localStorage.getItem(played.GAME_STARS), word: correctWord, total_games: localStorage.getItem(played.TOTAL_GAMES) });
         displayWin(remainingStars);
     } else {
+        guessArr.push(guess);
+        localStorage.setItem(played.GAME_GUESS, guessArr);
+
+        if (wordToday >= 15 && remainingStars > 2) { // ADDED FOR NEW FEATURE
+            $('.popup-error p').text(`That's not it.  Try again!`);
+            $('.popup-error').show();
+            for (let i = 0; i < correctWord.length; i++) {
+                if (!revealed.includes(i)) {
+                    $(`.inputs:nth-child(${i + 1})`).val('');
+                };
+            };
+            remainingStars -= 2;
+            updateRunningStars();
+        } else {
         totalGames++;
         remainingStars = 0;
         updateRunningStars();
@@ -357,10 +388,11 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_GAMES, totalGames);
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'lost');
-        localStorage.setItem(played.GAME_GUESS, guess);
-        sendEvent(analytics.LOSE_GAME, {user_guess:guess, word: correctWord, clues_shown:cluesShown, letters_shown:lettersShown, total_games: localStorage.getItem(played.TOTAL_GAMES)});
+        // localStorage.setItem(played.GAME_GUESS, guess);
+        sendEvent(analytics.LOSE_GAME, { user_guess: guess, word: correctWord, clues_shown: cluesShown, letters_shown: lettersShown, total_games: localStorage.getItem(played.TOTAL_GAMES) });
 
         displayLost();
+        };
     };
 
 };
@@ -447,8 +479,8 @@ function showStatPopup() {
     $('.popup-stats').show();
 };
 
-setInterval(function() {
-    if (localStorage.getItem(played.LAST_PLAYED) !== getTodaysDt()){
+setInterval(function () {
+    if (localStorage.getItem(played.LAST_PLAYED) !== getTodaysDt()) {
         window.location.reload(true);
     }
 }, 2000);
@@ -459,35 +491,35 @@ if (navigator.share) {
 
 async function share() {
     if (!('share' in navigator)) {
-      return;
+        return;
     }
     const canvas = await html2canvas(screenshotContainer);
-  
+
     canvas.toBlob(async function (blob) {
-      const files = [new File([blob], 'image.png', { type: blob.type })];
-      const shareData = {
-        title: 'Word! | Daily Brain Play',
-        files,
-      };
-      if (navigator.canShare(shareData)) {
-        try {
-          await navigator.share(shareData);
-        } catch (err) {
-          if (err.name !== 'AbortError') {
-            console.error(err.name, err.message);      
-          }
+        const files = [new File([blob], 'image.png', { type: blob.type })];
+        const shareData = {
+            title: 'Word! | Daily Brain Play',
+            files,
+        };
+        if (navigator.canShare(shareData)) {
+            try {
+                await navigator.share(shareData);
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    console.error(err.name, err.message);
+                }
+            }
+        } else {
+            console.warn('Sharing not supported', shareData);
         }
-      } else {
-        console.warn('Sharing not supported', shareData);            
-      }
     });
-  };
+};
 
 
-$('.shareresult').on('click', '#share-result', function(){
-    if(localStorage.getItem(played.GAME_RESULT) == 'won'){
+$('.shareresult').on('click', '#share-result', function () {
+    if (localStorage.getItem(played.GAME_RESULT) == 'won') {
         $('#shareText').text(`Woot! 🙌🏼 Guessed the Word! today and got`);
-    } else if (localStorage.getItem(played.GAME_RESULT) == 'lost'){
+    } else if (localStorage.getItem(played.GAME_RESULT) == 'lost') {
         $('#shareText').text(`Couldn't guess the Word! today 😖`);
         $('.stars').hide();
     }
