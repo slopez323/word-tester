@@ -52,7 +52,6 @@ let dailyWords;
 let clueList;
 
 let cluesShown;
-let stars;
 let totalGames;
 let totalStars;
 let revealed;
@@ -171,7 +170,6 @@ function getTodaysState() {
     };
 
     cluesShown = +localStorage.getItem(played.GAME_CLUES) || 1;
-    stars = 0;
     totalGames = +localStorage.getItem(played.TOTAL_GAMES) || 0;
     totalStars = +localStorage.getItem(played.TOTAL_STARS) || 0;
     revealed = localStorage.getItem(played.GAME_LETTERS) || [];
@@ -181,16 +179,22 @@ function getTodaysState() {
     };
     lettersShown = revealed.length;
 
-    remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
+    if (localStorage.getItem(played.GAME_RESULT) == 'lost') {
+        remainingStars = 0;
+    } else if (lettersShown > 0) {
+        remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
+    } else {
+        remainingStars = 5;
+    };
 };
 
 function updateRunningStars() {
-    remainingStars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
     $('.counter').empty();
     let num;
+    if (remainingStars === 0) num = 0;
     for (num = 2; num <= remainingStars + 1; num++) {
         $(`.counter:nth-child(${num})`).append(`<i class="fa fa-solid fa-circle"></i>`);
-    }
+    };
     if (remainingStars % 1 !== 0) {
         $(`.counter:nth-child(${num})`).append('<i class="fa fa-solid fa-circle-half-stroke"></i>');
         num++;
@@ -230,6 +234,7 @@ function showNextClue() {
         clues[cluesShown].textContent = clueList[cluesShown].toUpperCase();
         cluesShown++;
         localStorage.setItem(played.GAME_CLUES, cluesShown);
+        remainingStars -= 0.5;
         updateRunningStars();
         sendEvent(analytics.ADD_CLUE);
     } else if (cluesShown === 5) {
@@ -266,6 +271,7 @@ function addLetter() {
 
             lettersShown++;
             localStorage.setItem(played.GAME_LETTERS, revealed);
+            remainingStars--;
             updateRunningStars();
         };
         sendEvent(analytics.ADD_LETTER);
@@ -318,9 +324,8 @@ function checkGuess() {
     };
 
     if (guess.toUpperCase() === correctWord.toUpperCase()) {
-        stars = 5 - (cluesShown - 1) * .5 - (lettersShown - Math.floor(correctWord.length * .2));
         totalGames++;
-        totalStars += stars;
+        totalStars += remainingStars;
 
         revealRemainingClues();
 
@@ -333,13 +338,14 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_GAMES, totalGames);
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'won');
-        localStorage.setItem(played.GAME_STARS, stars);
+        localStorage.setItem(played.GAME_STARS, remainingStars);
         sendEvent(analytics.WIN_GAME, {stars: localStorage.getItem(played.GAME_STARS), word: correctWord, total_games: localStorage.getItem(played.TOTAL_GAMES)});
-        displayWin(stars);
+        displayWin(remainingStars);
     } else {
         totalGames++;
-        stars = 0;
-        totalStars += stars;
+        remainingStars = 0;
+        updateRunningStars();
+        totalStars += remainingStars;
 
         revealRemainingClues();
 
@@ -378,14 +384,14 @@ function displayLost() {
     countdown();
 }
 
-function displayWin(stars) {
+function displayWin(remainingStars) {
     $('.popup-result h1').text(`Yasss!`);
     $('#lostText').remove();
     $('#showWord').remove();
-    for (let i = 1; i <= stars; i++) {
+    for (let i = 1; i <= remainingStars; i++) {
         $('.stars').append('<i class="fa fa-solid fa-star" style ="font-size:50px"></i>');
     };
-    for (let i = 0; i < Math.ceil(stars % 1); i++) {
+    for (let i = 0; i < Math.ceil(remainingStars % 1); i++) {
         $('.stars').append('<i class="fa fa-solid fa-star-half" style ="font-size:50px"></i>');
     };
     $('.popup-result').show();
