@@ -389,7 +389,7 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'lost');
         // localStorage.setItem(played.GAME_GUESS, guess);
-        sendEvent(analytics.LOSE_GAME, { user_guess: guess, word: correctWord, clues_shown: cluesShown, letters_shown: lettersShown, total_games: localStorage.getItem(played.TOTAL_GAMES) });
+        sendEvent(analytics.LOSE_GAME, { user_guess: guessArr, word: correctWord, clues_shown: cluesShown, letters_shown: lettersShown, total_games: localStorage.getItem(played.TOTAL_GAMES) });
 
         displayLost();
         };
