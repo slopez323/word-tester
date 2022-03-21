@@ -498,7 +498,7 @@ async function share() {
     canvas.toBlob(async function (blob) {
         const files = [new File([blob], 'image.png', { type: blob.type })];
         const shareData = {
-            title: 'Word! | Daily Brain Play',
+            // title: 'Word! | Daily Brain Play',
             files,
         };
         if (navigator.canShare(shareData)) {
