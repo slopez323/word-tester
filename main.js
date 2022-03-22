@@ -356,7 +356,7 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'won');
         localStorage.setItem(played.GAME_STARS, remainingStars);
-        sendEvent(analytics.WIN_GAME, { stars: localStorage.getItem(played.GAME_STARS), word: correctWord, total_games: localStorage.getItem(played.TOTAL_GAMES) });
+        sendEvent(analytics.WIN_GAME, { stars: localStorage.getItem(played.GAME_STARS), user_guess: guessArr, word: correctWord, total_games: localStorage.getItem(played.TOTAL_GAMES) });
         displayWin(remainingStars);
     } else {
         guessArr.push(guess);
@@ -517,6 +517,7 @@ async function share() {
 
 
 $('.shareresult').on('click', '#share-result', function () {
+    sendEvent(analytics.SHARE_GAME_CLICK);
     if (localStorage.getItem(played.GAME_RESULT) == 'won') {
         $('#shareText').text(`Woot! 🙌🏼 Guessed the Word! today and got`);
     } else if (localStorage.getItem(played.GAME_RESULT) == 'lost') {
