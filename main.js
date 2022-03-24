@@ -316,17 +316,12 @@ function confirmSubmission() {
         $('.popup-error').show();
         return;
     } else {
-        if (wordToday >= 15) { // ADDED FOR NEW FEATURE
-            if (remainingStars > 2) {
-                $('.popup-confirm p').text('A wrong guess is worth 2 stars so guess wisely!');
-                $('.popup-confirm').show();
-                return;
-            } else {
-                $('.popup-confirm p').text('You only have enough stars for 1 final guess.');
-                $('.popup-confirm').show();
-                return;
-            };
+        if (remainingStars > 2) {
+            $('.popup-confirm p').text('A wrong guess is worth 2 stars so guess wisely!');
+            $('.popup-confirm').show();
+            return;
         } else {
+            $('.popup-confirm p').text('You only have enough stars for 1 final guess.');
             $('.popup-confirm').show();
             return;
         };
@@ -356,13 +351,13 @@ function checkGuess() {
         localStorage.setItem(played.TOTAL_STARS, totalStars);
         localStorage.setItem(played.GAME_RESULT, 'won');
         localStorage.setItem(played.GAME_STARS, remainingStars);
-        sendEvent(analytics.WIN_GAME, { stars: localStorage.getItem(played.GAME_STARS), user_guess: guessArr, word: correctWord, total_games: localStorage.getItem(played.TOTAL_GAMES) });
+        sendEvent(analytics.WIN_GAME, { stars: localStorage.getItem(played.GAME_STARS), user_guess: guessArr, word: correctWord, number: wordToday, total_games: localStorage.getItem(played.TOTAL_GAMES) });
         displayWin(remainingStars);
     } else {
         guessArr.push(guess);
         localStorage.setItem(played.GAME_GUESS, guessArr);
 
-        if (wordToday >= 15 && remainingStars > 2) { // ADDED FOR NEW FEATURE
+        if (remainingStars > 2) {
             $('.popup-error p').text(`That's not it.  Try again!`);
             $('.popup-error').show();
             for (let i = 0; i < correctWord.length; i++) {
@@ -373,25 +368,24 @@ function checkGuess() {
             remainingStars -= 2;
             updateRunningStars();
         } else {
-        totalGames++;
-        remainingStars = 0;
-        updateRunningStars();
-        totalStars += remainingStars;
+            totalGames++;
+            remainingStars = 0;
+            updateRunningStars();
+            totalStars += remainingStars;
 
-        revealRemainingClues();
+            revealRemainingClues();
 
-        $('#next').off();
-        $('#submit').off();
-        $('#letter').off();
-        $(`.inputs`).attr('disabled', 'disabled');
+            $('#next').off();
+            $('#submit').off();
+            $('#letter').off();
+            $(`.inputs`).attr('disabled', 'disabled');
 
-        localStorage.setItem(played.TOTAL_GAMES, totalGames);
-        localStorage.setItem(played.TOTAL_STARS, totalStars);
-        localStorage.setItem(played.GAME_RESULT, 'lost');
-        // localStorage.setItem(played.GAME_GUESS, guess);
-        sendEvent(analytics.LOSE_GAME, { user_guess: guessArr, word: correctWord, clues_shown: cluesShown, letters_shown: lettersShown, total_games: localStorage.getItem(played.TOTAL_GAMES) });
+            localStorage.setItem(played.TOTAL_GAMES, totalGames);
+            localStorage.setItem(played.TOTAL_STARS, totalStars);
+            localStorage.setItem(played.GAME_RESULT, 'lost');
+            sendEvent(analytics.LOSE_GAME, { user_guess: guessArr, word: correctWord, number: wordToday, total_games: localStorage.getItem(played.TOTAL_GAMES) });
 
-        displayLost();
+            displayLost();
         };
     };
 
