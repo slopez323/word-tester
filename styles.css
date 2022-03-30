@@ -446,7 +446,7 @@ h5{
     padding: 0 20px;
 }
 
-li.update{
+/* li.update{
     font-family: 'Inconsolata', monospace;
     color:#810524b0;
     font-size: 18px;
@@ -457,7 +457,7 @@ li.update{
     color: #810524b0;
     text-transform:uppercase;
     font-weight: 900;
-}
+} */
 
 @media (max-width: 767px) and (orientation:portrait) {
     .card{
