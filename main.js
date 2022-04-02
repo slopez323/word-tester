@@ -265,7 +265,7 @@ function addLetter() {
                 available.push(i);
             };
             available = available.filter(x => !revealed.includes(x));
-            if (random[added] > available.length) {
+            if (random[added] >= available.length) {
                 newReveal = Math.floor(random[added] % available.length);
             } else {
                 newReveal = random[added];
